@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 595.28 441.6">
+  <polyline points="222.69 223.03 227.28 181.21 245.07 207.15 268.83 185.77 276.77 202.6 290.21 188.11 299.13 210.25 322.83 191.69 318.14 215.17" style="fill: none; stroke: #000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 6px;"/>
+  <path d="M224.21,232.99c4.68,43.37,28.44,72.77,51.75,73.8,13.98.62,25.41-9.07,27.45-10.8,15.45-13.1,21.53-35.69,15.75-58.5" style="fill: none; stroke: #000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 6px;"/>
+  <path d="M325.4,237.32c5.59-.38,10.57,3.37,11.7,8.55,1.23,5.65-2.43,11.59-8.4,13.05" style="fill: none; stroke: #000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 6px;"/>
+  <path d="M216.6,243.35c-5.24,1.97-8.23,7.45-7.11,12.62,1.22,5.65,7.01,9.55,13.05,8.4" style="fill: none; stroke: #000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 6px;"/>
+  <circle cx="268.3" cy="226.89" r="4.98"/>
+  <circle cx="292.66" cy="228.01" r="4.98"/>
+  <line x1="280.25" y1="240.88" x2="280.25" y2="245.81" style="fill: none; stroke: #000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3px;"/>
+  <path d="M259.35,258.23c1.02.85,7.86,6.35,19.14,6.35s18.13-5.5,19.14-6.35" style="fill: none; stroke: #000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 6px;"/>
+</svg>
