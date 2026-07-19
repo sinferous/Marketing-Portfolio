@@ -81,11 +81,11 @@
           <span class="nav-note">selected things</span>
         </a>
         <div class="nav-connect-group">
-          <a class="nav-link nav-connect" href="mailto:hello@example.com">
+          <button class="nav-link nav-connect" type="button" aria-expanded="false" aria-controls="nav-social-popover">
             <span class="nav-label">Connect</span>
             <span class="nav-note">say hello!</span>
-          </a>
-          <div class="social-popover" aria-label="Social links">
+          </button>
+          <div class="social-popover" id="nav-social-popover" aria-label="Social links">
             <a class="social-pill social-linkedin" href="https://www.linkedin.com/in/varun-shetty-b71a1b197" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
               <span class="social-icon">in</span><span class="social-name">LinkedIn</span>
             </a>
@@ -221,6 +221,201 @@
           </div>
           <p class="caption">currently making things from India <span>⌁</span></p>
         </div>
+      </section>
+
+      <section class="work-section" id="work" aria-labelledby="work-title">
+        <img class="work-side-doodle work-cat" src="doodles/file-03.svg" data-depth="12" alt="" aria-hidden="true" />
+        <img class="work-side-doodle work-flowers" src="doodles/file-13.svg" data-depth="-14" alt="" aria-hidden="true" />
+        <img class="work-side-doodle work-fish" src="doodles/file-02.svg" data-depth="-16" alt="" aria-hidden="true" />
+        <img class="work-side-doodle work-bird" src="doodles/file-11.svg" data-depth="15" alt="" aria-hidden="true" />
+        <img class="work-side-doodle work-computer" src="doodles/file-12.svg" data-depth="-17" alt="" aria-hidden="true" />
+        <img class="work-side-doodle work-gundam" src="doodles/file-10.svg" data-depth="19" alt="" aria-hidden="true" />
+
+        <div class="work-inner">
+          <header class="work-heading">
+            <span class="work-tape" aria-hidden="true"></span>
+            <p>selected work</p>
+            <h2 id="work-title">Things I’ve made</h2>
+            <small>Experiments, systems, stories &amp; screens.</small>
+          </header>
+
+          <div class="category-chit-stack" aria-hidden="true">
+            <div class="category-chit chit-lined is-active" data-chit="0"><img src="doodles/2nd file-06.webp" alt="" /><span>AI Visual Campaigns</span></div>
+            <div class="category-chit chit-coral" data-chit="1"><img src="doodles/2nd file-03.webp" alt="" /><span>Motion Design</span></div>
+            <div class="category-chit chit-grid" data-chit="2"><img src="doodles/2nd file-04.webp" alt="" /><span>UI Experiences</span></div>
+            <div class="category-chit chit-yellow" data-chit="3"><img src="doodles/2nd file-05.webp" alt="" /><span>Brand Systems</span></div>
+            <div class="category-chit chit-dark" data-chit="4"><img src="doodles/2nd file-06.webp" alt="" /><span>Experimental Concepts</span></div>
+          </div>
+
+          <div class="work-categories">
+            <section class="work-category">
+              <header class="category-heading"><span>01</span><h3>AI Visual Campaigns</h3></header>
+              <div class="category-projects">
+                <article class="work-card tilt-left">
+                  <div class="project-placeholder look-coral"><span>image placeholder</span></div>
+                </article>
+                <article class="work-card work-card-small tilt-right">
+                  <div class="project-placeholder look-indigo"><span>image placeholder</span></div>
+                </article>
+                <article class="work-card tilt-right">
+                  <div class="project-placeholder look-grid"><span>image placeholder</span></div>
+                </article>
+                <article class="work-card tilt-left">
+                  <div class="project-placeholder look-night"><span>image placeholder</span></div>
+                </article>
+              </div>
+            </section>
+
+            <section class="work-category category-reverse">
+              <header class="category-heading"><span>02</span><h3>Motion Design</h3></header>
+              <div class="category-projects">
+                <article class="work-card work-card-small tilt-right">
+                  <div class="project-placeholder look-sun"><span>image placeholder</span></div>
+                </article>
+                <article class="work-card tilt-left">
+                  <div class="project-placeholder look-mint"><span>image placeholder</span></div>
+                </article>
+                <article class="work-card tilt-left">
+                  <div class="project-placeholder look-blue"><span>image placeholder</span></div>
+                </article>
+                <article class="work-card tilt-right">
+                  <div class="project-placeholder look-pink"><span>image placeholder</span></div>
+                </article>
+              </div>
+            </section>
+
+            <section class="work-category">
+              <header class="category-heading"><span>03</span><h3>UI Experiences</h3></header>
+              <div class="category-projects">
+                <article class="work-card tilt-left">
+                  <div class="project-placeholder look-grid"><span>image placeholder</span></div>
+                </article>
+                <article class="work-card work-card-small tilt-right">
+                  <div class="project-placeholder look-night"><span>image placeholder</span></div>
+                </article>
+                <article class="work-card tilt-right">
+                  <div class="project-placeholder look-mint"><span>image placeholder</span></div>
+                </article>
+                <article class="work-card tilt-left">
+                  <div class="project-placeholder look-indigo"><span>image placeholder</span></div>
+                </article>
+              </div>
+            </section>
+
+            <section class="work-category category-reverse">
+              <header class="category-heading"><span>04</span><h3>Brand Systems</h3></header>
+              <div class="category-projects">
+                <article class="work-card work-card-small tilt-right">
+                  <div class="project-placeholder look-paper"><span>image placeholder</span></div>
+                </article>
+                <article class="work-card tilt-left">
+                  <div class="project-placeholder look-blue"><span>image placeholder</span></div>
+                </article>
+                <article class="work-card tilt-left">
+                  <div class="project-placeholder look-sun"><span>image placeholder</span></div>
+                </article>
+                <article class="work-card tilt-right">
+                  <div class="project-placeholder look-night"><span>image placeholder</span></div>
+                </article>
+              </div>
+            </section>
+
+            <section class="work-category">
+              <header class="category-heading"><span>05</span><h3>Experimental Concepts</h3></header>
+              <div class="category-projects">
+                <article class="work-card tilt-left">
+                  <div class="project-placeholder look-pink"><span>image placeholder</span></div>
+                </article>
+                <article class="work-card work-card-small tilt-right">
+                  <div class="project-placeholder look-orbit"><span>image placeholder</span></div>
+                </article>
+                <article class="work-card tilt-right">
+                  <div class="project-placeholder look-paper"><span>image placeholder</span></div>
+                </article>
+                <article class="work-card tilt-left">
+                  <div class="project-placeholder look-coral"><span>image placeholder</span></div>
+                </article>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-section" id="about" aria-labelledby="about-title">
+        <div class="about-book">
+          <span class="book-spine" aria-hidden="true"></span>
+
+          <article class="about-page about-profile-page">
+            <span class="about-tape" aria-hidden="true"></span>
+            <figure class="about-photo">
+              <img src="doodles/Untitled-3-01.webp" alt="Varun Shetty" />
+            </figure>
+            <p class="about-signature">Varun Shetty</p>
+            <p class="about-role">Visual Designer · Storyteller · AI Creative</p>
+            <div class="about-location">
+              <span>Current Obsessions</span>
+              <div class="obsession-tags">
+                <small>AI Workflows</small>
+                <small>Motion Posters</small>
+                <small>Creative Websites</small>
+              </div>
+            </div>
+            <span class="about-scribble" aria-hidden="true">✦</span>
+          </article>
+
+          <article class="about-page about-story-page">
+            <p class="about-kicker">about me</p>
+            <h2 id="about-title">A little about<br /><em>the person behind the work.</em></h2>
+            <p class="about-intro">
+              I’m fascinated by how visuals influence the way people think, feel, and interact.
+              That’s what keeps me designing.
+            </p>
+
+            <div class="about-details">
+              <div class="about-detail">
+                <span>Things I naturally gravitate toward</span>
+                <ul>
+                  <li>Bold typography</li>
+                  <li>Motion that feels alive</li>
+                  <li>Editorial layouts</li>
+                  <li>Clever interactions</li>
+                  <li>AI-assisted creativity</li>
+                  <li>Tiny details people notice later</li>
+                </ul>
+              </div>
+              <div class="about-detail">
+                <span>What you’ll get working with me</span>
+                <ul>
+                  <li>Thoughtful communication</li>
+                  <li>Fast iteration</li>
+                  <li>Honest feedback</li>
+                  <li>Pixel-level attention</li>
+                  <li>Curiosity over ego</li>
+                  <li>Reliable delivery</li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="about-note">Every project teaches me something. That’s why I keep making.</p>
+
+            <div class="about-connect" id="connect">
+              <div>
+                <small>Open to freelance work and collaborations</small>
+                <strong>Have an idea worth exploring? Let’s make it real.</strong>
+              </div>
+              <nav class="about-socials" aria-label="Contact Varun">
+                <a href="https://www.linkedin.com/in/varun-shetty-b71a1b197" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://www.instagram.com/varun.shettyyyy/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="https://wa.me/919611067617" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+              </nav>
+            </div>
+          </article>
+        </div>
+
+        <footer class="site-footer">
+          <span>Varun Shetty · 2026</span>
+          <span>Designed with curiosity &amp; a little chaos.</span>
+        </footer>
       </section>
     </main>
 

@@ -1,12 +1,115 @@
 const heroArt = document.querySelector('.hero-art');
 const heroSection = document.querySelector('.hero');
 const sideDoodles = document.querySelectorAll('.outside-doodle');
+const workSection = document.querySelector('.work-section');
+const workDoodles = document.querySelectorAll('.work-side-doodle');
+const workCategories = [...document.querySelectorAll('.work-category')];
+const categoryChits = [...document.querySelectorAll('.category-chit')];
+const categoryChitStack = document.querySelector('.category-chit-stack');
 const visionBoard = document.querySelector('.vision-board');
 const draggablePieces = document.querySelectorAll('[data-draggable]');
 const nav = document.querySelector('.nav');
 const mascot = document.querySelector('.nav-smile');
 const mascotLinks = document.querySelectorAll('.nav-about, .nav-work, .nav-connect');
+const connectTrigger = document.querySelector('.nav-connect');
+const connectGroup = document.querySelector('.nav-connect-group');
+const connectSocialLinks = document.querySelectorAll('.nav-connect-group .social-pill');
 const rotatingWord = document.querySelector('.rotating-word');
+
+let activeCategoryIndex = 0;
+let categoryScrollFrame = null;
+let finalChitSettleTimer = null;
+
+const updateFinalChitAnchor = () => {
+  if (!categoryChitStack || !workCategories.length) return;
+  const finalCategory = workCategories[workCategories.length - 1];
+  const finalShift = Math.min(225, Math.max(155, window.innerHeight * 0.22));
+  const anchoredTop = finalCategory.offsetTop + window.innerHeight * 0.17 + finalShift;
+  categoryChitStack.style.setProperty('--final-chit-top', `${anchoredTop}px`);
+};
+
+const updateFinalChitLock = () => {
+  if (!categoryChitStack || !workCategories.length) return;
+  const finalCategory = workCategories[workCategories.length - 1];
+  const shouldAnchor =
+    activeCategoryIndex === workCategories.length - 1 &&
+    categoryChitStack.classList.contains('is-final-category') &&
+    finalCategory.getBoundingClientRect().top <= 0;
+
+  categoryChitStack.classList.toggle('is-final-anchored', shouldAnchor);
+};
+
+const swapCategoryChit = (nextIndex) => {
+  if (nextIndex === activeCategoryIndex || !categoryChits[nextIndex]) return;
+
+  const direction = nextIndex > activeCategoryIndex ? 1 : -1;
+  const outgoing = categoryChits[activeCategoryIndex];
+  const incoming = categoryChits[nextIndex];
+
+  outgoing.style.setProperty('--swap-out-x', `${direction * -105}px`);
+  outgoing.style.setProperty('--swap-out-turn', `${direction * -10}deg`);
+  incoming.style.setProperty('--swap-in-x', `${direction * 58}px`);
+  incoming.style.setProperty('--swap-in-turn', `${direction * 7}deg`);
+  outgoing.classList.remove('is-active');
+  outgoing.classList.add('is-exiting');
+  incoming.classList.add('is-active', 'is-entering');
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => incoming.classList.remove('is-entering'));
+  });
+
+  window.setTimeout(() => outgoing.classList.remove('is-exiting'), 480);
+  activeCategoryIndex = nextIndex;
+  window.clearTimeout(finalChitSettleTimer);
+
+  if (nextIndex === categoryChits.length - 1) {
+    updateFinalChitAnchor();
+    categoryChitStack?.classList.remove('is-final-anchored');
+    finalChitSettleTimer = window.setTimeout(() => {
+      if (activeCategoryIndex !== categoryChits.length - 1) return;
+      categoryChitStack?.classList.add('is-final-category');
+      updateFinalChitLock();
+    }, 180);
+  } else {
+    categoryChitStack?.classList.remove('is-final-category', 'is-final-anchored');
+  }
+};
+
+const updateCategoryChit = () => {
+  categoryScrollFrame = null;
+  if (!workCategories.length || !categoryChits.length) return;
+
+  const focusLine = window.innerHeight * 0.52;
+  let closestIndex = 0;
+  let closestDistance = Number.POSITIVE_INFINITY;
+
+  workCategories.forEach((category, index) => {
+    const bounds = category.getBoundingClientRect();
+    const distance = Math.abs(bounds.top + bounds.height / 2 - focusLine);
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestIndex = index;
+    }
+  });
+
+  swapCategoryChit(closestIndex);
+  updateFinalChitLock();
+};
+
+if (workCategories.length && categoryChits.length) {
+  const requestCategoryUpdate = () => {
+    if (categoryScrollFrame) return;
+    categoryScrollFrame = requestAnimationFrame(updateCategoryChit);
+  };
+
+  window.addEventListener('scroll', requestCategoryUpdate, { passive: true });
+  window.addEventListener('resize', () => {
+    updateFinalChitAnchor();
+    requestCategoryUpdate();
+  });
+  updateFinalChitAnchor();
+  updateCategoryChit();
+}
 
 if (rotatingWord && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const words = ['playful.', 'human.', 'memorable.', 'meaningful.', 'expressive.'];
@@ -149,6 +252,39 @@ if (nav && mascot && mascotLinks.length) {
   window.addEventListener('resize', returnMascotHome);
 }
 
+if (connectTrigger && connectGroup) {
+  const setConnectOpen = (open) => {
+    connectGroup.classList.toggle('is-open', open);
+    connectTrigger.setAttribute('aria-expanded', String(open));
+  };
+
+  connectTrigger.addEventListener('click', (event) => {
+    event.preventDefault();
+    connectGroup.classList.remove('is-dismissed');
+    setConnectOpen(!connectGroup.classList.contains('is-open'));
+  });
+
+  connectSocialLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      setConnectOpen(false);
+      connectGroup.classList.add('is-dismissed');
+      link.blur();
+    });
+  });
+
+  connectGroup.addEventListener('pointerleave', () => {
+    connectGroup.classList.remove('is-dismissed');
+  });
+
+  document.addEventListener('pointerdown', (event) => {
+    if (!connectGroup.contains(event.target)) setConnectOpen(false);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') setConnectOpen(false);
+  });
+}
+
 if (heroArt && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   heroArt.addEventListener('pointermove', (event) => {
     const bounds = heroArt.getBoundingClientRect();
@@ -182,6 +318,28 @@ if (heroSection && sideDoodles.length && !window.matchMedia('(prefers-reduced-mo
       doodle.style.setProperty('--drift-x', '0px');
       doodle.style.setProperty('--drift-y', '0px');
       doodle.style.setProperty('--drift-r', '0deg');
+    });
+  });
+}
+
+if (workSection && workDoodles.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  workSection.addEventListener('pointermove', (event) => {
+    const bounds = workSection.getBoundingClientRect();
+    const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 2;
+    const visibleY = Math.min(Math.max((event.clientY - bounds.top) / window.innerHeight, 0), 1);
+    const y = (visibleY - 0.5) * 2;
+
+    workDoodles.forEach((doodle) => {
+      const depth = Number(doodle.dataset.depth) || 12;
+      doodle.style.setProperty('--work-drift-x', `${x * depth}px`);
+      doodle.style.setProperty('--work-drift-y', `${y * Math.abs(depth) * 0.65}px`);
+    });
+  });
+
+  workSection.addEventListener('pointerleave', () => {
+    workDoodles.forEach((doodle) => {
+      doodle.style.setProperty('--work-drift-x', '0px');
+      doodle.style.setProperty('--work-drift-y', '0px');
     });
   });
 }
