@@ -10,11 +10,33 @@ const visionBoard = document.querySelector('.vision-board');
 const draggablePieces = document.querySelectorAll('[data-draggable]');
 const nav = document.querySelector('.nav');
 const mascot = document.querySelector('.nav-smile');
+const easterEggHint = document.querySelector('.easter-egg-hint');
 const mascotLinks = document.querySelectorAll('.nav-about, .nav-work, .nav-connect');
 const connectTrigger = document.querySelector('.nav-connect');
 const connectGroup = document.querySelector('.nav-connect-group');
 const connectSocialLinks = document.querySelectorAll('.nav-connect-group .social-pill');
 const rotatingWord = document.querySelector('.rotating-word');
+
+if (mascot && easterEggHint) {
+  const dismissEasterEggHint = () => {
+    easterEggHint.classList.add('is-dismissed');
+    try {
+      window.localStorage.setItem('portfolio-easter-hint-dismissed', 'true');
+    } catch {
+      // The hint still stays dismissed for the current visit.
+    }
+  };
+
+  try {
+    if (window.localStorage.getItem('portfolio-easter-hint-dismissed') === 'true') {
+      easterEggHint.classList.add('is-dismissed');
+    }
+  } catch {
+    // Storage may be unavailable when the portfolio is opened as a local file.
+  }
+
+  mascot.addEventListener('pointerenter', dismissEasterEggHint, { once: true });
+}
 
 let activeCategoryIndex = 0;
 let categoryScrollFrame = null;
