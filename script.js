@@ -346,7 +346,12 @@ if (workSection && workDoodles.length && !window.matchMedia('(prefers-reduced-mo
 
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   document.addEventListener('pointerdown', (event) => {
-    if (!event.isPrimary || event.button > 0 || event.target.closest('[data-draggable]')) return;
+    if (
+      document.body.classList.contains('game-is-open') ||
+      !event.isPrimary ||
+      event.button > 0 ||
+      event.target.closest('[data-draggable]')
+    ) return;
 
     const mark = document.createElement('span');
     mark.className = 'click-mark';
@@ -422,7 +427,7 @@ if (
   };
 
   document.addEventListener('pointermove', (event) => {
-    if (event.pointerType === 'touch') return;
+    if (event.pointerType === 'touch' || document.body.classList.contains('game-is-open')) return;
 
     const nextPoint = { x: event.clientX, y: event.clientY };
 
@@ -454,4 +459,286 @@ if (
     lastTrailPoint = null;
   });
   resizeTrailCanvas();
+}
+
+const dragonGame = document.querySelector('.dragon-game');
+const dragonGameStage = document.querySelector('.dragon-game-stage');
+const dragonGameItemsLayer = document.querySelector('.dragon-game-items');
+const dragonGameDragon = document.querySelector('.dragon-game-dragon');
+const dragonGameScore = document.querySelector('.dragon-game-score');
+const dragonGameTime = document.querySelector('.dragon-game-time');
+const dragonGameFinalScore = document.querySelector('.dragon-game-final-score');
+const dragonGameMessage = document.querySelector('.dragon-game-message');
+const dragonGameStart = document.querySelector('.dragon-game-start');
+const dragonGameReplay = document.querySelector('.dragon-game-replay');
+const dragonGameDone = document.querySelector('.dragon-game-done');
+const dragonGameClose = document.querySelector('.dragon-game-close');
+
+if (
+  mascot &&
+  dragonGame &&
+  dragonGameStage &&
+  dragonGameItemsLayer &&
+  dragonGameDragon
+) {
+  const snackTypes = [
+    { src: 'doodles/file-05.svg', points: 10, label: 'ramen' },
+    { src: 'doodles/file-04.svg', points: 5, label: 'juice' },
+  ];
+  const gameDuration = 30;
+  const gameItems = [];
+  let secretTapCount = 0;
+  let secretTapTimer = 0;
+  let gameFrame = 0;
+  let gameRunning = false;
+  let gameScoreValue = 0;
+  let gameLastTime = 0;
+  let gameEndsAt = 0;
+  let gameSpawnClock = 0;
+  let dragonPosition = 50;
+  let dragonTarget = 50;
+  let gameStageWidth = 0;
+  let gameStageHeight = 0;
+  let dragonWidth = 150;
+
+  const updateGameMeasurements = () => {
+    gameStageWidth = dragonGameStage.clientWidth;
+    gameStageHeight = dragonGameStage.clientHeight;
+    dragonWidth = dragonGameDragon.offsetWidth || 150;
+  };
+
+  const clearGameItems = () => {
+    gameItems.splice(0).forEach((item) => item.element.remove());
+    dragonGameItemsLayer.querySelectorAll('.dragon-score-pop').forEach((pop) => pop.remove());
+  };
+
+  const updateGameScore = (nextScore) => {
+    gameScoreValue = nextScore;
+    if (dragonGameScore) dragonGameScore.textContent = String(gameScoreValue);
+  };
+
+  const stopGameLoop = () => {
+    gameRunning = false;
+    if (gameFrame) window.cancelAnimationFrame(gameFrame);
+    gameFrame = 0;
+  };
+
+  const closeGame = () => {
+    stopGameLoop();
+    clearGameItems();
+    dragonGame.classList.remove('is-active');
+    dragonGame.setAttribute('aria-hidden', 'true');
+    dragonGame.removeAttribute('data-state');
+    document.body.classList.remove('game-is-open');
+    mascot.focus({ preventScroll: true });
+  };
+
+  const openGame = () => {
+    stopGameLoop();
+    clearGameItems();
+    updateGameScore(0);
+    if (dragonGameTime) dragonGameTime.textContent = String(gameDuration);
+    dragonPosition = 50;
+    dragonTarget = 50;
+    dragonGameDragon.style.left = '50%';
+    dragonGame.setAttribute('data-state', 'intro');
+    dragonGame.setAttribute('aria-hidden', 'false');
+    dragonGame.classList.add('is-active');
+    document.body.classList.add('game-is-open');
+    window.requestAnimationFrame(() => {
+      updateGameMeasurements();
+      dragonGameStart?.focus({ preventScroll: true });
+    });
+  };
+
+  const showScorePop = (x, y, points) => {
+    const pop = document.createElement('span');
+    pop.className = 'dragon-score-pop';
+    pop.textContent = `+${points}`;
+    pop.style.left = `${x}px`;
+    pop.style.top = `${y}px`;
+    dragonGameItemsLayer.appendChild(pop);
+    pop.addEventListener('animationend', () => pop.remove(), { once: true });
+  };
+
+  const feedDragon = (item) => {
+    updateGameScore(gameScoreValue + item.points);
+    showScorePop(item.x + item.size / 2, gameStageHeight - 135, item.points);
+    item.element.style.setProperty('--caught-x', `${item.x}px`);
+    item.element.style.setProperty('--caught-y', `${gameStageHeight - 100}px`);
+    item.element.style.setProperty('--caught-turn', `${item.rotation + 16}deg`);
+    item.element.classList.add('is-caught');
+    window.setTimeout(() => item.element.remove(), 250);
+
+    dragonGameDragon.classList.remove('is-fed');
+    void dragonGameDragon.offsetWidth;
+    dragonGameDragon.classList.add('is-fed');
+  };
+
+  const spawnSnack = () => {
+    if (!gameStageWidth) updateGameMeasurements();
+    const snack = snackTypes[Math.floor(Math.random() * snackTypes.length)];
+    const size = 54 + Math.random() * 34;
+    const element = document.createElement('img');
+    const x = 18 + Math.random() * Math.max(1, gameStageWidth - size - 36);
+    const rotation = Math.random() * 18 - 9;
+
+    element.className = 'dragon-game-item';
+    element.src = snack.src;
+    element.alt = '';
+    element.setAttribute('aria-hidden', 'true');
+    element.style.setProperty('--item-size', `${size}px`);
+    dragonGameItemsLayer.appendChild(element);
+
+    gameItems.push({
+      element,
+      x,
+      y: -size - 8,
+      size,
+      speed: 120 + Math.random() * 78,
+      rotation,
+      spin: Math.random() * 28 - 14,
+      points: snack.points,
+      label: snack.label,
+    });
+  };
+
+  const finishGame = () => {
+    stopGameLoop();
+    clearGameItems();
+    if (dragonGameFinalScore) dragonGameFinalScore.textContent = String(gameScoreValue);
+
+    if (dragonGameMessage) {
+      dragonGameMessage.textContent = gameScoreValue >= 110
+        ? 'Dragon fed. Creativity restored!'
+        : gameScoreValue >= 55
+          ? 'A very happy little dragon.'
+          : 'Still snacky. Still adorable.';
+    }
+
+    dragonGame.setAttribute('data-state', 'finished');
+    dragonGameReplay?.focus({ preventScroll: true });
+  };
+
+  const runGameFrame = (now) => {
+    if (!gameRunning) return;
+    const delta = Math.min((now - gameLastTime) / 1000, 0.034);
+    const remaining = Math.max(0, Math.ceil((gameEndsAt - now) / 1000));
+    gameLastTime = now;
+    gameSpawnClock += delta;
+
+    if (dragonGameTime && dragonGameTime.textContent !== String(remaining)) {
+      dragonGameTime.textContent = String(remaining);
+    }
+    if (remaining <= 0) {
+      finishGame();
+      return;
+    }
+
+    dragonPosition += (dragonTarget - dragonPosition) * Math.min(1, delta * 11);
+    dragonGameDragon.style.left = `${dragonPosition}%`;
+
+    if (gameSpawnClock >= 0.62) {
+      gameSpawnClock = 0;
+      spawnSnack();
+    }
+
+    const dragonCenter = gameStageWidth * dragonPosition / 100;
+    const catchTop = gameStageHeight - Math.min(128, gameStageHeight * 0.24);
+
+    for (let index = gameItems.length - 1; index >= 0; index -= 1) {
+      const item = gameItems[index];
+      item.y += item.speed * delta;
+      item.rotation += item.spin * delta;
+      item.element.style.transform = `translate3d(${item.x}px, ${item.y}px, 0) rotate(${item.rotation}deg)`;
+
+      const itemCenter = item.x + item.size / 2;
+      const withinMouth = Math.abs(itemCenter - dragonCenter) < dragonWidth * 0.34;
+      const atDragon = item.y + item.size >= catchTop && item.y < gameStageHeight - 32;
+
+      if (withinMouth && atDragon) {
+        gameItems.splice(index, 1);
+        feedDragon(item);
+      } else if (item.y > gameStageHeight + item.size) {
+        gameItems.splice(index, 1);
+        item.element.remove();
+      }
+    }
+
+    gameFrame = window.requestAnimationFrame(runGameFrame);
+  };
+
+  const startGame = () => {
+    stopGameLoop();
+    clearGameItems();
+    updateGameMeasurements();
+    updateGameScore(0);
+    dragonPosition = 50;
+    dragonTarget = 50;
+    dragonGameDragon.style.left = '50%';
+    gameSpawnClock = .34;
+    gameLastTime = performance.now();
+    gameEndsAt = gameLastTime + gameDuration * 1000;
+    gameRunning = true;
+    dragonGame.setAttribute('data-state', 'playing');
+    if (dragonGameTime) dragonGameTime.textContent = String(gameDuration);
+    dragonGameStage.focus({ preventScroll: true });
+    gameFrame = window.requestAnimationFrame(runGameFrame);
+  };
+
+  const moveDragonFromPointer = (event) => {
+    if (!gameRunning) return;
+    const bounds = dragonGameStage.getBoundingClientRect();
+    const edgePadding = Math.min(10, 50 * dragonWidth / Math.max(1, bounds.width));
+    const position = (event.clientX - bounds.left) / bounds.width * 100;
+    dragonTarget = Math.max(edgePadding, Math.min(100 - edgePadding, position));
+  };
+
+  mascot.addEventListener('click', (event) => {
+    if (dragonGame.classList.contains('is-active')) {
+      event.preventDefault();
+      return;
+    }
+
+    secretTapCount += 1;
+    window.clearTimeout(secretTapTimer);
+    mascot.classList.remove('is-secret-warming');
+    void mascot.offsetWidth;
+    mascot.classList.add('is-secret-warming');
+
+    if (secretTapCount >= 5) {
+      event.preventDefault();
+      secretTapCount = 0;
+      mascot.classList.remove('is-secret-warming');
+      openGame();
+      return;
+    }
+
+    secretTapTimer = window.setTimeout(() => {
+      secretTapCount = 0;
+      mascot.classList.remove('is-secret-warming');
+    }, 6000);
+  });
+
+  dragonGameStage.addEventListener('pointermove', moveDragonFromPointer);
+  dragonGameStage.addEventListener('pointerdown', moveDragonFromPointer);
+  dragonGameStart?.addEventListener('click', startGame);
+  dragonGameReplay?.addEventListener('click', startGame);
+  dragonGameDone?.addEventListener('click', closeGame);
+  dragonGameClose?.addEventListener('click', closeGame);
+
+  document.addEventListener('keydown', (event) => {
+    if (!dragonGame.classList.contains('is-active')) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeGame();
+      return;
+    }
+    if (!gameRunning || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+    event.preventDefault();
+    dragonTarget += event.key === 'ArrowLeft' ? -7 : 7;
+    dragonTarget = Math.max(8, Math.min(92, dragonTarget));
+  });
+
+  window.addEventListener('resize', updateGameMeasurements);
 }

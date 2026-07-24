@@ -10,7 +10,7 @@
   <body>
     <header class="site-header">
       <nav class="nav" aria-label="Main navigation">
-        <a class="nav-smile" href="#home" aria-label="Go to the homepage">
+        <button class="nav-smile" type="button" aria-label="Playful portfolio mascot">
           <svg class="mascot-small" viewBox="0 0 32 32" aria-hidden="true">
             <circle class="mascot-eye" cx="11" cy="12" r="1.15" />
             <circle class="mascot-eye" cx="21" cy="12" r="1.15" />
@@ -71,7 +71,7 @@
               <path d="M259.35 258.23c1.02.85 7.86 6.35 19.14 6.35s18.13-5.5 19.14-6.35" stroke-width="6" />
             </g>
           </svg>
-        </a>
+        </button>
         <a class="nav-link nav-about" href="#about">
           <span class="nav-label">About</span>
           <span class="nav-note">the human bit</span>
@@ -418,6 +418,49 @@
         </footer>
       </section>
     </main>
+
+    <section class="dragon-game" aria-hidden="true">
+      <div class="dragon-game-shell" role="dialog" aria-modal="true" aria-labelledby="dragon-game-title">
+        <button class="dragon-game-close" type="button" aria-label="Close the game">×</button>
+
+        <header class="dragon-game-hud">
+          <div>
+            <small>secret level unlocked</small>
+            <strong id="dragon-game-title">Feed the Doodle Dragon</strong>
+          </div>
+          <div class="dragon-game-stats" aria-live="polite">
+            <span>score <strong class="dragon-game-score">0</strong></span>
+            <span>time <strong class="dragon-game-time">30</strong></span>
+          </div>
+        </header>
+
+        <div class="dragon-game-stage" tabindex="0" aria-label="Move left and right to catch falling ramen and juice">
+          <div class="dragon-game-items" aria-hidden="true"></div>
+
+          <div class="dragon-game-card dragon-game-intro">
+            <p class="dragon-game-kicker">psst... you found it!</p>
+            <h2>Someone is hungry.</h2>
+            <p>Move the dragon with your mouse, finger, or arrow keys. Catch ramen for <b>+10</b> and juice for <b>+5</b>.</p>
+            <button class="dragon-game-start" type="button">Feed the dragon!</button>
+          </div>
+
+          <div class="dragon-game-card dragon-game-result">
+            <p class="dragon-game-kicker">time’s up!</p>
+            <h2 class="dragon-game-message">Dragon fed. Creativity restored.</h2>
+            <p>You scored <strong class="dragon-game-final-score">0</strong> points.</p>
+            <div class="dragon-game-actions">
+              <button class="dragon-game-replay" type="button">Play again</button>
+              <button class="dragon-game-done" type="button">Back to portfolio</button>
+            </div>
+          </div>
+
+          <p class="dragon-game-instruction">move side to side &amp; catch the snacks</p>
+          <div class="dragon-game-dragon" aria-hidden="true">
+            <img src="doodles/file-01.svg" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
 
     <script src="script.js"></script>
   </body>

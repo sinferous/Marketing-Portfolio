@@ -57,8 +57,13 @@ a { color: inherit; text-decoration: none; }
   z-index: 5;
   width: 32px;
   height: 32px;
+  padding: 0;
   margin-inline: -7px;
   color: var(--chalk);
+  border: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
   transform: translate(0, 0) rotate(-7deg);
   transform-origin: center;
   transition: transform 580ms cubic-bezier(.22,.72,.2,1);
@@ -1869,4 +1874,261 @@ h1 span { font-family: Caveat, "Segoe Print", cursive; font-size: 1.12em; font-w
   .about-socials { justify-content: flex-start; margin-top: 15px; }
   .site-footer { display: block; text-align: center; }
   .site-footer span { display: block; margin-top: 5px; }
+}
+
+/* Hidden doodle-dragon mini game */
+body.game-is-open { overflow: hidden; }
+body.game-is-open .cursor-trail-canvas { opacity: 0; }
+
+.dragon-game {
+  position: fixed;
+  z-index: 10000;
+  inset: 0;
+  padding: clamp(12px, 2.4vw, 34px);
+  display: grid;
+  place-items: center;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(rgba(255,255,255,.035) .8px, transparent .8px),
+    rgba(24, 25, 23, .97);
+  background-size: 5px 5px;
+  transition: opacity 240ms ease, visibility 0s linear 240ms;
+}
+.dragon-game.is-active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+.dragon-game-shell {
+  position: relative;
+  width: min(1050px, 100%);
+  color: var(--cream-soft);
+  transform: translateY(18px) rotate(-.25deg) scale(.98);
+  transition: transform 420ms cubic-bezier(.2,.85,.25,1.12);
+}
+.dragon-game.is-active .dragon-game-shell { transform: translateY(0) rotate(-.25deg) scale(1); }
+.dragon-game-close {
+  position: absolute;
+  z-index: 30;
+  right: 14px;
+  top: 11px;
+  width: 39px;
+  height: 39px;
+  display: grid;
+  place-items: center;
+  padding: 0 0 4px;
+  color: var(--cream-soft);
+  border: 1.5px solid rgba(248,234,214,.55);
+  border-radius: 48% 52% 45% 55% / 53% 46% 54% 47%;
+  background: transparent;
+  font: 700 30px/1 Caveat, cursive;
+  cursor: pointer;
+  transform: rotate(5deg);
+  transition: color 160ms ease, background 160ms ease, transform 180ms ease;
+}
+.dragon-game-close:hover,
+.dragon-game-close:focus-visible { color: var(--charcoal); background: var(--cream-soft); outline: none; transform: rotate(-4deg) scale(1.06); }
+.dragon-game-hud {
+  min-height: 76px;
+  padding: 11px 70px 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.dragon-game-hud small,
+.dragon-game-hud strong { display: block; }
+.dragon-game-hud small { color: var(--coral); font-size: 15px; font-weight: 700; transform: rotate(-2deg); }
+.dragon-game-hud > div > strong { font-family: "DM Serif Display", Georgia, serif; font-size: clamp(25px, 3vw, 38px); font-weight: 400; line-height: .95; }
+.dragon-game-stats { display: flex; gap: 10px; }
+.dragon-game-stats > span {
+  min-width: 82px;
+  padding: 6px 13px 7px;
+  color: #704b3e;
+  border-radius: 999px;
+  background: var(--cream-soft);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  transform: rotate(var(--stat-turn, -1deg));
+}
+.dragon-game-stats > span + span { --stat-turn: 2deg; }
+.dragon-game-stats strong { color: var(--coral); font-size: 22px; line-height: .8; }
+
+.dragon-game-stage {
+  position: relative;
+  height: min(68vh, 620px);
+  min-height: 430px;
+  overflow: hidden;
+  border: 2px solid rgba(248,234,214,.3);
+  border-radius: 34px 27px 38px 30px;
+  outline: none;
+  background:
+    linear-gradient(rgba(248,234,214,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(248,234,214,.055) 1px, transparent 1px),
+    #252623;
+  background-size: 38px 38px;
+  box-shadow: 0 28px 70px rgba(0,0,0,.42), inset 0 0 80px rgba(0,0,0,.18);
+  touch-action: none;
+}
+.dragon-game-stage::before,
+.dragon-game-stage::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  width: 105px;
+  height: 42px;
+  pointer-events: none;
+  border-top: 3px solid var(--coral);
+  border-radius: 50%;
+  opacity: .7;
+}
+.dragon-game-stage::before { left: 26px; top: 27px; transform: rotate(-8deg); }
+.dragon-game-stage::after { right: 27px; bottom: 25px; transform: rotate(169deg); }
+.dragon-game-items { position: absolute; z-index: 5; inset: 0; pointer-events: none; }
+.dragon-game-item {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--item-size, 70px);
+  height: var(--item-size, 70px);
+  object-fit: contain;
+  pointer-events: none;
+  filter:
+    brightness(0) saturate(100%)
+    invert(91%) sepia(13%) saturate(436%) hue-rotate(337deg) brightness(104%) contrast(94%)
+    drop-shadow(0 8px 8px rgba(0,0,0,.27));
+  will-change: transform;
+}
+.dragon-game-item.is-caught { animation: dragon-snack-caught 240ms ease-out forwards; }
+@keyframes dragon-snack-caught {
+  to { opacity: 0; transform: translate3d(var(--caught-x), var(--caught-y), 0) rotate(var(--caught-turn)) scale(.25); }
+}
+.dragon-game-dragon {
+  position: absolute;
+  z-index: 7;
+  left: 50%;
+  bottom: 10px;
+  width: clamp(100px, 12vw, 145px);
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateX(-50%);
+  transform-origin: 50% 85%;
+  transition: opacity 240ms ease;
+  will-change: left, transform;
+}
+.dragon-game-dragon img {
+  width: 145.1%;
+  max-width: none;
+  height: auto;
+  display: block;
+  transform: translateX(-31.1%);
+  filter:
+    brightness(0) saturate(100%)
+    invert(91%) sepia(13%) saturate(436%) hue-rotate(337deg) brightness(104%) contrast(94%)
+    drop-shadow(0 12px 13px rgba(0,0,0,.3));
+}
+.dragon-game-dragon.is-fed { animation: dragon-happy-bite 280ms cubic-bezier(.2,.9,.3,1.25); }
+@keyframes dragon-happy-bite {
+  45% { transform: translateX(-50%) translateY(-10px) rotate(-4deg) scale(1.08); }
+}
+.dragon-game:not([data-state="playing"]) .dragon-game-dragon { opacity: .22; }
+.dragon-game-instruction {
+  position: absolute;
+  z-index: 8;
+  left: 50%;
+  bottom: 9px;
+  margin: 0;
+  color: rgba(248,234,214,.62);
+  font-size: 14px;
+  transform: translateX(-50%) rotate(-1deg);
+  transition: opacity 160ms ease;
+}
+.dragon-game:not([data-state="playing"]) .dragon-game-instruction { opacity: 0; }
+
+.dragon-game-card {
+  position: absolute;
+  z-index: 20;
+  left: 50%;
+  top: 50%;
+  width: min(440px, calc(100% - 38px));
+  padding: 32px 38px 35px;
+  color: #263f37;
+  background: var(--cream-soft);
+  box-shadow: 15px 18px 0 rgba(0,0,0,.18);
+  clip-path: polygon(2% 4%, 98% 0, 96% 96%, 79% 93%, 61% 98%, 43% 95%, 25% 100%, 1% 95%);
+  text-align: center;
+  transform: translate(-50%, -50%) rotate(-1.5deg);
+}
+.dragon-game-card::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -8px;
+  width: 82px;
+  height: 20px;
+  background: rgba(239,91,69,.78);
+  transform: translateX(-50%) rotate(3deg);
+}
+.dragon-game-kicker { margin: 0; color: var(--coral); font-size: 17px; font-weight: 700; }
+.dragon-game-card h2 { margin: 3px 0 10px; font-family: "DM Serif Display", Georgia, serif; font-size: clamp(34px, 5vw, 48px); font-weight: 400; line-height: .94; }
+.dragon-game-card > p:not(.dragon-game-kicker) { margin: 0 auto; max-width: 340px; color: #704b3e; font-size: 17px; line-height: 1.25; }
+.dragon-game-card button {
+  margin-top: 20px;
+  padding: 9px 19px 10px;
+  color: #fff4e8;
+  border: 0;
+  border-radius: 999px;
+  background: var(--coral);
+  font: 700 18px/1 Caveat, cursive;
+  cursor: pointer;
+  box-shadow: 4px 5px 0 rgba(38,63,55,.18);
+  transition: transform 170ms ease, box-shadow 170ms ease;
+}
+.dragon-game-card button:hover,
+.dragon-game-card button:focus-visible { outline: none; transform: translateY(-3px) rotate(-2deg); box-shadow: 6px 8px 0 rgba(38,63,55,.18); }
+.dragon-game-result { display: none; }
+.dragon-game[data-state="playing"] .dragon-game-intro { display: none; }
+.dragon-game[data-state="finished"] .dragon-game-intro { display: none; }
+.dragon-game[data-state="finished"] .dragon-game-result { display: block; }
+.dragon-game-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 9px; }
+.dragon-game-actions .dragon-game-done { color: #704b3e; border: 1.5px solid var(--coral); background: transparent; box-shadow: none; }
+.dragon-score-pop {
+  position: absolute;
+  z-index: 12;
+  color: var(--coral);
+  font-size: 27px;
+  font-weight: 700;
+  pointer-events: none;
+  animation: dragon-score-pop 520ms ease-out forwards;
+}
+@keyframes dragon-score-pop {
+  from { opacity: 1; transform: translate(-50%, 0) rotate(-5deg) scale(.8); }
+  to { opacity: 0; transform: translate(-50%, -55px) rotate(4deg) scale(1.18); }
+}
+.nav-smile.is-secret-warming::after { opacity: 1; animation: secret-smile-pulse 420ms ease; }
+@keyframes secret-smile-pulse {
+  50% { transform: rotate(-8deg) scale(1.35); color: var(--coral); }
+}
+
+@media (max-width: 620px) {
+  .dragon-game { padding: 8px; }
+  .dragon-game-hud { min-height: 88px; padding: 8px 50px 8px 9px; align-items: flex-start; }
+  .dragon-game-hud > div > strong { max-width: 175px; font-size: 25px; }
+  .dragon-game-stats { gap: 5px; }
+  .dragon-game-stats > span { min-width: 57px; padding: 5px 7px; font-size: 11px; }
+  .dragon-game-stats strong { font-size: 18px; }
+  .dragon-game-stage { height: calc(100dvh - 105px); min-height: 390px; border-radius: 24px; }
+  .dragon-game-card { padding: 30px 23px 31px; }
+  .dragon-game-card h2 { font-size: 37px; }
+  .dragon-game-dragon { width: 104px; }
+  .dragon-game-instruction { width: 100%; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dragon-game,
+  .dragon-game-shell { transition: none; }
 }
