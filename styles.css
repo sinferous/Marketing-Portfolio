@@ -1038,6 +1038,22 @@ h1 span { font-family: Caveat, "Segoe Print", cursive; font-size: 1.12em; font-w
   box-shadow: 0 32px 55px rgba(0, 0, 0, .38);
   transform: translateY(-12px) rotate(0deg);
 }
+.project-media {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 14px 11px 15px 12px;
+  background: #202120;
+}
+.project-media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.project-media-nimbu { aspect-ratio: 4 / 5; }
+.project-media-mitti { aspect-ratio: 16 / 9; }
+.project-media-raga { aspect-ratio: 1 / 1; }
+.project-media-monsoon { aspect-ratio: 9 / 16; }
 .project-placeholder {
   --placeholder-one: #ef5b45;
   --placeholder-two: #f0c86d;
@@ -1603,6 +1619,11 @@ h1 span { font-family: Caveat, "Segoe Print", cursive; font-size: 1.12em; font-w
   .category-projects .work-card:nth-child(3) .project-placeholder { aspect-ratio: 1.08 / 1; }
   .category-projects .work-card:nth-child(4) .project-placeholder { aspect-ratio: 1.72 / 1; }
 
+  .ai-campaign-category .category-projects .work-card:nth-child(1) { left: 1%; top: 12%; width: 23%; }
+  .ai-campaign-category .category-projects .work-card:nth-child(2) { right: -2%; top: 15%; width: 32%; }
+  .ai-campaign-category .category-projects .work-card:nth-child(3) { left: 5%; top: 59%; width: 27%; }
+  .ai-campaign-category .category-projects .work-card:nth-child(4) { right: 9%; top: 52%; width: 18%; }
+
   .work-category:nth-child(even) .category-projects .work-card:nth-child(1) { left: 4%; top: 16%; width: 27%; }
   .work-category:nth-child(even) .category-projects .work-card:nth-child(2) { right: 1%; top: 12%; width: 36%; }
   .work-category:nth-child(even) .category-projects .work-card:nth-child(3) { left: 0; top: 53%; width: 35%; }
@@ -1758,7 +1779,7 @@ h1 span { font-family: Caveat, "Segoe Print", cursive; font-size: 1.12em; font-w
   position: absolute;
   z-index: 4;
   left: 50%;
-  top: 26px;
+  top: 58px;
   width: 90px;
   height: 23px;
   background: rgba(239,91,69,.72);
@@ -1806,6 +1827,45 @@ h1 span { font-family: Caveat, "Segoe Print", cursive; font-size: 1.12em; font-w
   font-size: 11px;
   line-height: 1;
   white-space: nowrap;
+}
+.about-personal-note {
+  position: absolute;
+  left: 50%;
+  bottom: 43px;
+  width: min(335px, 82%);
+  margin: 0;
+  padding: 10px 14px 9px;
+  color: #704b3e;
+  text-align: left;
+  border-left: 2px solid var(--coral);
+  background: rgba(250, 242, 230, .46);
+  transform: translateX(-50%) rotate(.6deg);
+}
+.about-personal-note > span {
+  display: inline-block;
+  color: var(--coral);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1;
+  transform: rotate(-1.5deg);
+}
+.about-personal-note p {
+  margin: 6px 0 8px;
+  font-size: 12px;
+  line-height: 1.15;
+}
+.personal-interest-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.personal-interest-tags small {
+  padding: 3px 6px;
+  color: #865040;
+  border: 1px solid rgba(239, 91, 69, .72);
+  border-radius: 999px;
+  font-size: 9px;
+  line-height: 1;
 }
 .about-scribble { position: absolute; right: 35px; bottom: 25px; color: var(--coral); font-size: 28px; transform: rotate(12deg); }
 
@@ -1889,11 +1949,19 @@ h1 span { font-family: Caveat, "Segoe Print", cursive; font-size: 1.12em; font-w
   .about-profile-page,
   .about-story-page { transform: none; }
   .about-profile-page { border-radius: 28px 28px 5px 5px; }
+  .about-personal-note {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    margin: 30px auto 0;
+    transform: rotate(.6deg);
+  }
   .about-story-page { padding: 55px 38px 42px; border-radius: 5px 5px 28px 28px; }
 }
 
 @media (max-width: 580px) {
   .about-profile-page { padding: 60px 28px 38px; }
+  .about-personal-note { margin-top: 27px; }
   .about-story-page { padding: 45px 25px 32px; }
   .about-story-page h2 { font-size: 39px; }
   .about-details { grid-template-columns: 1fr; }
