@@ -2650,6 +2650,7 @@ body.game-is-open .cursor-trail-canvas { opacity: 0; }
   color: var(--coral);
   border: 0;
   background: transparent;
+  font-family: Caveat, "Segoe Print", "Bradley Hand", cursive;
   font-size: 19px;
   font-weight: 700;
   line-height: .95;
