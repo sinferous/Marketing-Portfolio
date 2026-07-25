@@ -40,26 +40,6 @@ if (mascot && easterEggHint) {
 
 let activeCategoryIndex = 0;
 let categoryScrollFrame = null;
-let finalChitSettleTimer = null;
-
-const updateFinalChitAnchor = () => {
-  if (!categoryChitStack || !workCategories.length) return;
-  const finalCategory = workCategories[workCategories.length - 1];
-  const finalShift = Math.min(225, Math.max(155, window.innerHeight * 0.22));
-  const anchoredTop = finalCategory.offsetTop + window.innerHeight * 0.17 + finalShift;
-  categoryChitStack.style.setProperty('--final-chit-top', `${anchoredTop}px`);
-};
-
-const updateFinalChitLock = () => {
-  if (!categoryChitStack || !workCategories.length) return;
-  const finalCategory = workCategories[workCategories.length - 1];
-  const shouldAnchor =
-    activeCategoryIndex === workCategories.length - 1 &&
-    categoryChitStack.classList.contains('is-final-category') &&
-    finalCategory.getBoundingClientRect().top <= 0;
-
-  categoryChitStack.classList.toggle('is-final-anchored', shouldAnchor);
-};
 
 const swapCategoryChit = (nextIndex) => {
   if (nextIndex === activeCategoryIndex || !categoryChits[nextIndex]) return;
@@ -82,19 +62,6 @@ const swapCategoryChit = (nextIndex) => {
 
   window.setTimeout(() => outgoing.classList.remove('is-exiting'), 480);
   activeCategoryIndex = nextIndex;
-  window.clearTimeout(finalChitSettleTimer);
-
-  if (nextIndex === categoryChits.length - 1) {
-    updateFinalChitAnchor();
-    categoryChitStack?.classList.remove('is-final-anchored');
-    finalChitSettleTimer = window.setTimeout(() => {
-      if (activeCategoryIndex !== categoryChits.length - 1) return;
-      categoryChitStack?.classList.add('is-final-category');
-      updateFinalChitLock();
-    }, 180);
-  } else {
-    categoryChitStack?.classList.remove('is-final-category', 'is-final-anchored');
-  }
 };
 
 const updateCategoryChit = () => {
@@ -115,7 +82,26 @@ const updateCategoryChit = () => {
   });
 
   swapCategoryChit(closestIndex);
-  updateFinalChitLock();
+  workCategories.forEach((category, index) => {
+    category.classList.toggle('is-current', index === closestIndex);
+  });
+
+  if (categoryChitStack) {
+    const activeBounds = workCategories[closestIndex].getBoundingClientRect();
+    const moveDistance = Math.max(window.innerHeight * 0.3, 210);
+    const rawProgress = Math.min(Math.max(-activeBounds.top / moveDistance, 0), 1);
+    const easedProgress = 1 - Math.pow(1 - rawProgress, 3);
+    const isDesktop = window.innerWidth > 800;
+    const cornerX = isDesktop
+      ? -(window.innerWidth / 2 - Math.min(235, window.innerWidth * 0.19))
+      : 0;
+    const cornerY = isDesktop ? -window.innerHeight * 0.085 : 0;
+
+    categoryChitStack.style.setProperty('--chit-stage-x', `${cornerX * easedProgress}px`);
+    categoryChitStack.style.setProperty('--chit-stage-y', `${cornerY * easedProgress}px`);
+    categoryChitStack.style.setProperty('--chit-stage-scale', String(1 - easedProgress * 0.48));
+    categoryChitStack.classList.toggle('is-condensed', isDesktop && easedProgress > 0.72);
+  }
 };
 
 if (workCategories.length && categoryChits.length) {
@@ -126,10 +112,8 @@ if (workCategories.length && categoryChits.length) {
 
   window.addEventListener('scroll', requestCategoryUpdate, { passive: true });
   window.addEventListener('resize', () => {
-    updateFinalChitAnchor();
     requestCategoryUpdate();
   });
-  updateFinalChitAnchor();
   updateCategoryChit();
 }
 
