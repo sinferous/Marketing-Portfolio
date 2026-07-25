@@ -16,6 +16,8 @@ const connectTrigger = document.querySelector('.nav-connect');
 const connectGroup = document.querySelector('.nav-connect-group');
 const connectSocialLinks = document.querySelectorAll('.nav-connect-group .social-pill');
 const rotatingWord = document.querySelector('.rotating-word');
+const peekCharacter = document.querySelector('.peek-character');
+const peekBubble = document.querySelector('.peek-bubble');
 
 if (mascot && easterEggHint) {
   const dismissEasterEggHint = () => {
@@ -115,6 +117,90 @@ if (workCategories.length && categoryChits.length) {
     requestCategoryUpdate();
   });
   updateCategoryChit();
+}
+
+if (
+  peekCharacter &&
+  peekBubble &&
+  !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+) {
+  const peekMessages = [
+    'relax, I’m supervising.',
+    'scrolling like it’s cardio.',
+    'approved. barely.',
+    'caught staring? bold.',
+    'this stays between us.',
+  ];
+  let peekTimer = 0;
+  let peekHideTimer = 0;
+  let lastPeekMessageIndex = -1;
+
+  const schedulePeek = (firstAppearance = false) => {
+    window.clearTimeout(peekTimer);
+    const minimum = firstAppearance ? 12000 : 35000;
+    const maximum = firstAppearance ? 21000 : 65000;
+    const delay = minimum + Math.random() * (maximum - minimum);
+    peekTimer = window.setTimeout(showPeek, delay);
+  };
+
+  const hidePeek = (nextDelay = true) => {
+    window.clearTimeout(peekHideTimer);
+    peekCharacter.classList.remove('is-visible', 'is-caught');
+    peekCharacter.setAttribute('aria-hidden', 'true');
+    peekCharacter.setAttribute('tabindex', '-1');
+
+    window.setTimeout(() => {
+      peekBubble.textContent = '';
+      if (nextDelay) schedulePeek();
+    }, 820);
+  };
+
+  const showPeek = () => {
+    if (
+      document.hidden ||
+      window.innerWidth <= 700 ||
+      document.body.classList.contains('game-is-open')
+    ) {
+      schedulePeek();
+      return;
+    }
+
+    const leftPosition = 8 + Math.random() * 9;
+    peekCharacter.classList.remove('is-caught');
+    peekCharacter.style.setProperty('--peek-left', `${leftPosition}vw`);
+    peekCharacter.setAttribute('aria-hidden', 'false');
+    peekCharacter.setAttribute('tabindex', '0');
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => peekCharacter.classList.add('is-visible'));
+    });
+
+    peekHideTimer = window.setTimeout(() => hidePeek(), 6200);
+  };
+
+  peekCharacter.addEventListener('click', () => {
+    if (!peekCharacter.classList.contains('is-visible')) return;
+    window.clearTimeout(peekHideTimer);
+    let messageIndex = Math.floor(Math.random() * peekMessages.length);
+    if (peekMessages.length > 1 && messageIndex === lastPeekMessageIndex) {
+      messageIndex = (messageIndex + 1) % peekMessages.length;
+    }
+    lastPeekMessageIndex = messageIndex;
+    peekBubble.textContent = peekMessages[messageIndex];
+    peekCharacter.classList.add('is-caught');
+    peekHideTimer = window.setTimeout(() => hidePeek(), 1900);
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      window.clearTimeout(peekTimer);
+      if (peekCharacter.classList.contains('is-visible')) hidePeek(false);
+    } else {
+      schedulePeek(true);
+    }
+  });
+
+  schedulePeek(true);
 }
 
 if (rotatingWord && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

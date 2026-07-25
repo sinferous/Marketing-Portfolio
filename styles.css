@@ -1819,7 +1819,7 @@ h1 span { font-family: Caveat, "Segoe Print", cursive; font-size: 1.12em; font-w
 .about-personal-note {
   position: absolute;
   left: 50%;
-  bottom: 43px;
+  bottom: 22px;
   width: min(335px, 82%);
   margin: 0;
   padding: 10px 14px 9px;
@@ -2593,4 +2593,87 @@ body.game-is-open .cursor-trail-canvas { opacity: 0; }
     text-align: center;
   }
   .closing-meta span { display: block; margin-top: 4px; }
+}
+
+/* Occasional edge-peeking doodle */
+.peek-character {
+  --peek-left: 50vw;
+  --peek-rotation: 0deg;
+  position: fixed;
+  z-index: 9000;
+  left: var(--peek-left);
+  top: auto;
+  bottom: 0;
+  width: clamp(105px, 9vw, 150px);
+  padding: 0;
+  opacity: .78;
+  pointer-events: none;
+  color: var(--cream-soft);
+  border: 0;
+  outline: 0;
+  background: transparent;
+  cursor: pointer;
+  transform: translate(-50%, 122%);
+  transition:
+    opacity 140ms ease,
+    transform 780ms cubic-bezier(.2, 1.18, .32, 1);
+}
+.peek-character.is-visible {
+  opacity: .78;
+  pointer-events: auto;
+  transform: translate(-50%, 7%);
+}
+.peek-character img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: brightness(0) saturate(100%) invert(91%) sepia(17%) saturate(579%) hue-rotate(331deg) brightness(105%) contrast(90%);
+  transform: rotate(var(--peek-rotation));
+  transform-origin: center;
+  transition: transform 260ms cubic-bezier(.2, .9, .3, 1.2);
+}
+.peek-character.is-caught img {
+  transform: rotate(var(--peek-rotation)) scale(1.045);
+}
+.peek-character.is-visible.is-caught {
+  transform: translate(-50%, 2%);
+}
+.peek-bubble {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: -17%;
+  width: max-content;
+  max-width: 190px;
+  padding: 0;
+  opacity: 0;
+  color: var(--coral);
+  border: 0;
+  background: transparent;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: .95;
+  letter-spacing: .01em;
+  text-align: center;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, .82);
+  pointer-events: none;
+  transform: translate(-50%, 8px) rotate(-3deg) scale(.86);
+  transition: opacity 180ms ease, transform 260ms cubic-bezier(.2, .9, .3, 1.2);
+}
+.peek-character.is-caught .peek-bubble {
+  opacity: 1;
+  transform: translate(-50%, 0) rotate(-3deg) scale(1);
+}
+.peek-character:focus-visible::after {
+  content: "";
+  position: absolute;
+  inset: 18% 8%;
+  border: 2px solid var(--coral);
+  border-radius: 50%;
+}
+@media (max-width: 700px) {
+  .peek-character { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .peek-character { display: none; }
 }
