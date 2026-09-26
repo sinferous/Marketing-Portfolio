@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Design Orbit — Centralized Design Ops &amp; Team Management Suite</title>
+    <meta
+      name="description"
+      content="A centralized design operations &amp; team management dashboard built to track client deliverables, monitor time allocation, and maximize creative team output."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="design-orbit.css" />
+  </head>
+  <body class="orbit-page">
+    <!-- Ambient Canvas Glows -->
+    <div class="orbit-glow glow-top" aria-hidden="true"></div>
+    <div class="orbit-glow glow-middle" aria-hidden="true"></div>
+
+    <!-- Top Sticky Header -->
+    <header class="orbit-nav">
+      <div class="orbit-nav-shell">
+        <a href="index.html#experimental" class="orbit-back-btn" id="nav-back-portfolio">
+          <span class="back-arrow">←</span>
+          <span>Back to Portfolio</span>
+        </a>
+
+        <div class="orbit-nav-center">
+          <span class="orbit-dot-live"></span>
+          <span class="orbit-pill-tag">Design Orbit OS · Production Case Study</span>
+        </div>
+
+        <div class="orbit-nav-right">
+          <a href="mailto:sinferous32@gmail.com" class="orbit-contact-btn">Get in Touch ↗</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="orbit-container">
+      <!-- Hero Section -->
+      <section class="orbit-hero">
+        <div class="orbit-hero-kicker">
+          <span class="kicker-tape" aria-hidden="true"></span>
+          <span class="kicker-badge">✦ Internal Operations &amp; Team OS</span>
+          <span class="kicker-doodle">"built to fix spreadsheet chaos" ✎</span>
+        </div>
+
+        <h1 class="orbit-title">Design Orbit</h1>
+        
+        <p class="orbit-gist">
+          A centralized design operations &amp; team management dashboard built to track client deliverables, monitor time allocation, and maximize creative team output.
+        </p>
+
+        <!-- Role & Scope Badges -->
+        <div class="orbit-meta-panel">
+          <div class="meta-item">
+            <span class="meta-label">My Role</span>
+            <strong class="meta-val highlight-coral">Lead Designer &amp; Project Lead</strong>
+          </div>
+          <div class="meta-divider"></div>
+          <div class="meta-item">
+            <span class="meta-label">Scope</span>
+            <strong class="meta-val">Product Architecture, Team Operations, UI/UX Design &amp; Workflow Management</strong>
+          </div>
+          <div class="meta-divider"></div>
+          <div class="meta-item">
+            <span class="meta-label">Environment</span>
+            <strong class="meta-val">Internal Studio OS · React, TypeScript &amp; Supabase</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- The Challenge & Solution Grid -->
+      <section class="orbit-narrative-grid">
+        <!-- The Challenge Card -->
+        <div class="narrative-card challenge-card">
+          <span class="card-pin" aria-hidden="true">📌</span>
+          <div class="card-head">
+            <span class="card-kicker">The Friction</span>
+            <h2>The Challenge</h2>
+          </div>
+          <p class="card-text">
+            As a design team grows across multiple client accounts, tracking billable hours, project milestones, and individual designer bandwidth quickly becomes fragmented across spreadsheets and chat threads.
+          </p>
+          <div class="challenge-breakdown">
+            <div class="breakdown-item">
+              <span class="breakdown-icon">⚡</span>
+              <div>
+                <strong>Blind Spots in Bandwidth:</strong>
+                <span>Leads couldn't gauge if a designer was overloaded or sitting idle until sprint deadlines were already missed.</span>
+              </div>
+            </div>
+            <div class="breakdown-item">
+              <span class="breakdown-icon">📉</span>
+              <div>
+                <strong>Unlogged Billable Leakage:</strong>
+                <span>Scattered WhatsApp feedback loops meant client revision hours weren't tracked against agreed budgets.</span>
+              </div>
+            </div>
+            <div class="breakdown-item">
+              <span class="breakdown-icon">📁</span>
+              <div>
+                <strong>Siloed Asset Review:</strong>
+                <span>Creative assets were lost between Figma links, Google Drive folders, and Slack channels.</span>
+              </div>
+            </div>
+          </div>
+          <p class="card-foot-quote">
+            “We didn’t just need another task list—we needed a real-time single source of truth connecting designer capacity directly with client budgets.”
+          </p>
+        </div>
+
+        <!-- The Solution Card -->
+        <div class="narrative-card solution-card">
+          <span class="card-stamp" aria-hidden="true">DEPLOYED SYSTEM</span>
+          <div class="card-head">
+            <span class="card-kicker">The Architecture</span>
+            <h2>The Solution</h2>
+          </div>
+          <p class="card-text">
+            Designed and spearheaded <strong>Design Orbit</strong>—an internal operations and management suite that connects creative team output directly with client accountability through four unified pillars:
+          </p>
+          
+          <div class="pillars-list">
+            <div class="pillar-box">
+              <div class="pillar-num">01</div>
+              <div>
+                <h3>Team &amp; Capacity Management</h3>
+                <p>Real-time visibility into designer workload, sprint progress, and task assignments to prevent bottlenecks and burnout.</p>
+              </div>
+            </div>
+
+            <div class="pillar-box">
+              <div class="pillar-num">02</div>
+              <div>
+                <h3>Client Time &amp; Budget Tracking</h3>
+                <p>Granular logging of hours spent per client account, keeping deliverables on budget and simplifying reporting.</p>
+              </div>
+            </div>
+
+            <div class="pillar-box">
+              <div class="pillar-num">03</div>
+              <div>
+                <h3>Deliverable &amp; Output Tracking</h3>
+                <p>End-to-end status of design assets from brief to review, internal quality approval, and final client handoff.</p>
+              </div>
+            </div>
+
+            <div class="pillar-box">
+              <div class="pillar-num">04</div>
+              <div>
+                <h3>Operational Insights</h3>
+                <p>Executive analytics on team velocity, hours utilized, billable ratio, and project completion rates.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Measurable Business Impact -->
+      <section class="orbit-impact-section">
+        <header class="impact-header">
+          <span class="impact-kicker">Measurable Operational Results</span>
+          <h2>Proven Studio Impact</h2>
+          <p>Transforming team operations from reactive chaos into predictable, profitable output.</p>
+        </header>
+
+        <div class="impact-metrics-deck">
+          <div class="impact-stat-card">
+            <div class="stat-highlight">-40%</div>
+            <h3>Administrative Overhead</h3>
+            <p>Streamlined client reporting and reduced administrative overhead for sprint planning and timeline estimation.</p>
+          </div>
+
+          <div class="impact-stat-card">
+            <div class="stat-highlight">98%</div>
+            <h3>On-Time Milestone Delivery</h3>
+            <p>Improved project delivery timelines through proactive bandwidth balancing and early bottleneck identification.</p>
+          </div>
+
+          <div class="impact-stat-card">
+            <div class="stat-highlight">100%</div>
+            <h3>Budget &amp; ROI Transparency</h3>
+            <p>Provided unambiguous transparency into client ROI, active deliverable burn-rate, and creative team utilization.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SCREEN SHOWCASES (THE 3 CORE REVIEWS)
+           ======================================================== -->
+      <section class="orbit-screens-showcase">
+        <header class="screens-header">
+          <span class="screens-kicker">✦ Product Architecture &amp; UI</span>
+          <h2>Key System Interfaces</h2>
+          <p>Carefully engineered for leadership oversight, commercial accountability, and designer ease of use.</p>
+        </header>
+
+        <!-- SCREEN 1: THE EXECUTIVE / LEAD DASHBOARD (Hero Image) -->
+        <article class="screen-feature" id="screen-executive">
+          <div class="screen-meta-head">
+            <div class="screen-badge-group">
+              <span class="screen-order-badge">Screen 01 · Hero Showcase</span>
+              <span class="screen-type-badge">Executive Oversight &amp; Operations</span>
+              <span class="screen-real-badge">● Authentic Product Screenshot</span>
+            </div>
+            <h3 class="screen-main-title">The Executive / Lead Dashboard</h3>
+            <div class="screen-curator-notes">
+              <div class="curator-col">
+                <span class="curator-label">What it shows:</span>
+                <p>High-level metrics at a glance—total active clients, overall team hours logged this week, billable vs. non-billable ratio, and active project health indicators.</p>
+              </div>
+              <div class="curator-col">
+                <span class="curator-label">Why it looks great:</span>
+                <p>Makes an immediate visual impression as an authoritative leadership tool rather than just a simple to-do list, establishing oversight across all active client deliverables.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Real Screenshot Frame: Screen 1 -->
+          <div class="ui-mockup-frame">
+            <header class="mockup-chrome-bar">
+              <div class="chrome-traffic-lights">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="chrome-address-bar">
+                <span>https://design-orbit-sigma.vercel.app/dashboard</span>
+              </div>
+              <a href="https://design-orbit-sigma.vercel.app/dashboard" target="_blank" rel="noopener" class="live-app-pill-btn">
+                <span>Open Live Software</span>
+                <span class="arrow">↗</span>
+              </a>
+            </header>
+
+            <div class="real-screenshot-stage">
+              <img 
+                src="assets/design-orbit/dashboard-executive.png" 
+                alt="Design Orbit — Real Executive Dashboard Product Screenshot" 
+                class="product-real-img"
+                loading="eager"
+              />
+              <div class="screenshot-meta-tray">
+                <span class="meta-tray-tag">✦ Live Production Interface · Design Orbit OS</span>
+                <span class="meta-tray-hint">Captured directly from live deployment at design-orbit-sigma.vercel.app</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- SCREEN 2: CLIENT TIME & RESOURCE ALLOCATION VIEW -->
+        <article class="screen-feature" id="screen-clients">
+          <div class="screen-meta-head">
+            <div class="screen-badge-group">
+              <span class="screen-order-badge">Screen 02 · Commercial &amp; Retainer Control</span>
+              <span class="screen-type-badge">Financial Acumen &amp; Client Accountability</span>
+              <span class="screen-real-badge">● Authentic Product Screenshot</span>
+            </div>
+            <h3 class="screen-main-title">Client Time &amp; Resource Allocation View</h3>
+            <div class="screen-curator-notes">
+              <div class="curator-col">
+                <span class="curator-label">What it shows:</span>
+                <p>Granular breakdown by client showing billable hours spent, allocated retainer budget vs. used time, burn-rates, and active client directory.</p>
+              </div>
+              <div class="curator-col">
+                <span class="curator-label">Why recruiters &amp; clients love it:</span>
+                <p>Demonstrates commercial acumen and client accountability—proving you understand business value, client ROI, and time management beyond visual styling.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Real Screenshots: Screen 2 (Dual View: Billing & Client Directory) -->
+          <div class="screenshots-dual-wrapper">
+            <!-- View A: Client Hours & Billing -->
+            <div class="ui-mockup-frame dual-frame">
+              <header class="mockup-chrome-bar">
+                <div class="chrome-traffic-lights">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="chrome-address-bar">
+                  <span>https://design-orbit-sigma.vercel.app/reports/billing</span>
+                </div>
+                <span class="chrome-tag-badge">Client Billing Ledger</span>
+              </header>
+              <div class="real-screenshot-stage">
+                <img 
+                  src="assets/design-orbit/client-billing.png" 
+                  alt="Design Orbit — Real Client Hours and Billing Report Screenshot" 
+                  class="product-real-img"
+                  loading="lazy"
+                />
+              </div>
+              <footer class="screenshot-card-footer">
+                <strong>Granular Client Billing Ledger:</strong>
+                <p>Logs exact billable time per designer per client account, keeping deliverables on budget and simplifying month-end client invoicing.</p>
+              </footer>
+            </div>
+
+            <!-- View B: Clients Directory -->
+            <div class="ui-mockup-frame dual-frame">
+              <header class="mockup-chrome-bar">
+                <div class="chrome-traffic-lights">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="chrome-address-bar">
+                  <span>https://design-orbit-sigma.vercel.app/clients</span>
+                </div>
+                <span class="chrome-tag-badge">Clients Directory</span>
+              </header>
+              <div class="real-screenshot-stage">
+                <img 
+                  src="assets/design-orbit/clients-directory.png" 
+                  alt="Design Orbit — Real Clients Directory Screenshot" 
+                  class="product-real-img"
+                  loading="lazy"
+                />
+              </div>
+              <footer class="screenshot-card-footer">
+                <strong>Active Clients &amp; Account Health:</strong>
+                <p>Centralized directory of all brand retainers, active deliverable counts, and real-time operational health indicators.</p>
+              </footer>
+            </div>
+          </div>
+        </article>
+
+        <!-- SCREEN 3: TEAM WORKLOAD & OUTPUT MATRIX -->
+        <article class="screen-feature" id="screen-team">
+          <div class="screen-meta-head">
+            <div class="screen-badge-group">
+              <span class="screen-order-badge">Screen 03 · Bandwidth &amp; Execution</span>
+              <span class="screen-type-badge">Hands-On Team Management</span>
+              <span class="screen-real-badge">● Authentic Product Screenshot</span>
+            </div>
+            <h3 class="screen-main-title">Team Workload &amp; Output Matrix</h3>
+            <div class="screen-curator-notes">
+              <div class="curator-col">
+                <span class="curator-label">What it shows:</span>
+                <p>Team members' daily activity logs, current deliverable cards, status approvals (Pending, Done, Approved), and weekly capacity reports.</p>
+              </div>
+              <div class="curator-col">
+                <span class="curator-label">Why it proves leadership:</span>
+                <p>Proves your hands-on team management capability and shows how you maintain output quality, eliminate bottlenecks, and prevent designer burnout across your creative team.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Real Screenshots: Screen 3 (Dual View: Daily Work Log & Weekly Meeting Analytics) -->
+          <div class="screenshots-dual-wrapper">
+            <!-- View A: Daily Work Log & Approvals -->
+            <div class="ui-mockup-frame dual-frame">
+              <header class="mockup-chrome-bar">
+                <div class="chrome-traffic-lights">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="chrome-address-bar">
+                  <span>https://design-orbit-sigma.vercel.app/work</span>
+                </div>
+                <span class="chrome-tag-badge">Daily Team Log &amp; Queue</span>
+              </header>
+              <div class="real-screenshot-stage">
+                <img 
+                  src="assets/design-orbit/team-worklog.png" 
+                  alt="Design Orbit — Real Team Workload and Approval Log Screenshot" 
+                  class="product-real-img"
+                  loading="lazy"
+                />
+              </div>
+              <footer class="screenshot-card-footer">
+                <strong>End-to-End Asset Review &amp; Approval:</strong>
+                <p>Daily log interface where team members submit work and design leads approve or request revisions before final client handoff.</p>
+              </footer>
+            </div>
+
+            <!-- View B: Weekly Meeting & Velocity Report -->
+            <div class="ui-mockup-frame dual-frame">
+              <header class="mockup-chrome-bar">
+                <div class="chrome-traffic-lights">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="chrome-address-bar">
+                  <span>https://design-orbit-sigma.vercel.app/reports/weekly</span>
+                </div>
+                <span class="chrome-tag-badge">Weekly Output Summary</span>
+              </header>
+              <div class="real-screenshot-stage">
+                <img 
+                  src="assets/design-orbit/weekly-report.png" 
+                  alt="Design Orbit — Real Weekly Meeting Report Screenshot" 
+                  class="product-real-img"
+                  loading="lazy"
+                />
+              </div>
+              <footer class="screenshot-card-footer">
+                <strong>Team Velocity &amp; Sprint Reporting:</strong>
+                <p>Pre-calculated weekly summaries ready for sprint planning, team standups, and executive utilization reviews.</p>
+              </footer>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Bottom Summary & Back to Portfolio Navigation -->
+      <section class="orbit-footer-nav">
+        <div class="footer-nav-inner">
+          <div class="footer-copy">
+            <span class="footer-kicker">End of Case Study</span>
+            <h2>Bridging Creative Vision with Operational Rigor</h2>
+            <p>
+              Design Orbit demonstrates how hands-on design leadership, commercial awareness, and software engineering come together to eliminate friction for creative teams.
+            </p>
+          </div>
+          <div class="footer-actions">
+            <a href="index.html#experimental" class="btn-return-portfolio">
+              <span>← Back to Main Portfolio</span>
+            </a>
+            <a href="mailto:sinferous32@gmail.com" class="btn-discuss-ops">
+              <span>Discuss Creative Operations ↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="orbit-site-foot">
+      <div class="foot-inner">
+        <p>© 2026 · Designed &amp; Engineered by Lead Designer</p>
+        <small>Built with pride, attention to craft, and zero spreadsheets.</small>
+      </div>
+    </footer>
+  </body>
+</html>

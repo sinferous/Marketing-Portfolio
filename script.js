@@ -3,9 +3,14 @@ const heroSection = document.querySelector('.hero');
 const sideDoodles = document.querySelectorAll('.outside-doodle');
 const workSection = document.querySelector('.work-section');
 const workDoodles = document.querySelectorAll('.work-side-doodle');
-const workCategories = [...document.querySelectorAll('.work-category')];
-const categoryChits = [...document.querySelectorAll('.category-chit')];
-const categoryChitStack = document.querySelector('.category-chit-stack');
+const reelPin = document.getElementById('work-reel-pin');
+const reelSticky = document.querySelector('.work-reel-sticky');
+const reelViewport = document.querySelector('.work-reel-viewport');
+const reelTrack = document.querySelector('.work-reel-track');
+const reelProgressFill = document.querySelector('.reel-progress-fill');
+const reelCurrentNum = document.querySelector('.reel-current-num');
+const cinemaCards = [...document.querySelectorAll('.cinema-card')];
+const aboutSection = document.getElementById('about');
 const visionBoard = document.querySelector('.vision-board');
 const draggablePieces = document.querySelectorAll('[data-draggable]');
 const nav = document.querySelector('.nav');
@@ -19,105 +24,625 @@ const rotatingWord = document.querySelector('.rotating-word');
 const peekCharacter = document.querySelector('.peek-character');
 const peekBubble = document.querySelector('.peek-bubble');
 
-if (mascot && easterEggHint) {
-  const dismissEasterEggHint = () => {
-    easterEggHint.classList.add('is-dismissed');
-    try {
-      window.localStorage.setItem('portfolio-easter-hint-dismissed', 'true');
-    } catch {
-      // The hint still stays dismissed for the current visit.
+try {
+  window.localStorage.removeItem('portfolio-easter-hint-dismissed');
+} catch {
+  // Storage may be unavailable when opened locally.
+}
+
+let reelScrollFrame = null;
+
+const updateReelAndTheme = () => {
+  reelScrollFrame = null;
+  if (!reelPin || !reelTrack || !reelViewport) return;
+
+  const pinRect = reelPin.getBoundingClientRect();
+  const pinTop = pinRect.top + window.scrollY;
+  const pinHeight = reelPin.offsetHeight;
+  const maxScroll = pinHeight - window.innerHeight;
+
+  if (maxScroll <= 0) return;
+
+  const currentScroll = window.scrollY - pinTop;
+  const rawProgress = Math.min(Math.max(currentScroll / maxScroll, 0), 1);
+
+  // Cards smoothly translate across 0 -> 0.82 of scroll runway.
+  // The final ~18% gives generous dwell time where Card 04 and the HUD bar remain completely stationary and visible on screen.
+  const glideProgress = Math.min(rawProgress / 0.82, 1);
+  const maxTranslate = Math.max(0, reelTrack.scrollWidth - reelViewport.clientWidth);
+  reelTrack.style.transform = `translate3d(-${glideProgress * maxTranslate}px, 0, 0)`;
+
+  if (reelProgressFill) {
+    reelProgressFill.style.width = `${Math.round(glideProgress * 100)}%`;
+  }
+
+  // Active card indicator and numbering
+  if (cinemaCards.length) {
+    const cardStep = 1 / cinemaCards.length;
+    const activeIdx = Math.min(
+      Math.floor((glideProgress + 0.12) / cardStep),
+      cinemaCards.length - 1
+    );
+    if (reelCurrentNum) {
+      reelCurrentNum.textContent = `0${activeIdx + 1}`;
+    }
+    cinemaCards.forEach((card, idx) => {
+      card.classList.toggle('is-active', idx === activeIdx);
+    });
+  }
+
+  // Multi-stage background color transition (inspired by gravity-design.de):
+  // 1. Above video section: default charcoal (#222222)
+  // 2. Video & Experimental sections active: warm sketchbook Light Paper theme (#f5eedf)
+  // 3. About section active: warm espresso (#1c1815)
+  const videoSection = document.getElementById('videos');
+  const expSection = document.getElementById('experimental');
+  const videoRect = videoSection ? videoSection.getBoundingClientRect() : null;
+  const expRect = expSection ? expSection.getBoundingClientRect() : null;
+  const aboutRect = aboutSection ? aboutSection.getBoundingClientRect() : null;
+  const vh = window.innerHeight;
+
+  const isAboutActive = aboutRect ? aboutRect.top <= vh * 0.5 : false;
+  const isLightActive = !isAboutActive && (
+    (videoRect && videoRect.top <= vh * 0.72 && videoRect.bottom >= 0) ||
+    (expRect && expRect.top <= vh * 0.72 && expRect.bottom >= 0)
+  );
+
+  document.body.classList.toggle('theme-espresso', isAboutActive);
+  document.body.classList.toggle('theme-paper', isLightActive);
+};
+
+if (reelPin && reelTrack) {
+  const requestReelUpdate = () => {
+    if (reelScrollFrame) return;
+    reelScrollFrame = requestAnimationFrame(updateReelAndTheme);
+  };
+
+  window.addEventListener('scroll', requestReelUpdate, { passive: true });
+  window.addEventListener('resize', requestReelUpdate);
+  updateReelAndTheme();
+
+  reelViewport?.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      window.scrollBy({ top: window.innerHeight * 0.45, behavior: 'smooth' });
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      window.scrollBy({ top: -window.innerHeight * 0.45, behavior: 'smooth' });
+    }
+  });
+}
+
+// Creative Campaign Lightbox Modal (Full-Scale Big Image Viewer)
+const creativeModal = document.getElementById('creative-modal');
+const creativeModalClose = creativeModal?.querySelector('.creative-modal-close');
+const creativeModalOverlay = creativeModal?.querySelector('.creative-modal-overlay');
+const creativeModalImg = creativeModal?.querySelector('.creative-modal-img');
+const creativeModalBadge = creativeModal?.querySelector('.creative-modal-badge');
+const creativeModalIdx = document.getElementById('creative-modal-idx');
+const creativeModalTitle = creativeModal?.querySelector('.creative-modal-title');
+const creativeModalDesc = creativeModal?.querySelector('.creative-modal-desc');
+const creativeModalToolsChips = creativeModal?.querySelector('.creative-modal-tools-chips');
+const creativeNavPrev = creativeModal?.querySelector('.creative-nav-prev');
+const creativeNavNext = creativeModal?.querySelector('.creative-nav-next');
+
+let currentCreativeIndex = 0;
+
+const updateCreativeModalContent = (index) => {
+  if (!cinemaCards.length || !cinemaCards[index]) return;
+  currentCreativeIndex = index;
+  const card = cinemaCards[index];
+  const { title, badge, desc, img, tools } = card.dataset;
+
+  if (creativeModalImg) {
+    creativeModalImg.style.opacity = '0';
+    creativeModalImg.style.transform = 'scale(0.96)';
+    setTimeout(() => {
+      creativeModalImg.src = img || '';
+      creativeModalImg.alt = title || '';
+      creativeModalImg.style.opacity = '1';
+      creativeModalImg.style.transform = 'scale(1)';
+    }, 110);
+  }
+
+  if (creativeModalIdx) creativeModalIdx.textContent = `0${index + 1}`;
+  if (creativeModalBadge) creativeModalBadge.textContent = badge || 'Campaign';
+  if (creativeModalTitle) creativeModalTitle.textContent = title || '';
+  if (creativeModalDesc) creativeModalDesc.textContent = desc || '';
+};
+
+const lockModalScroll = () => {
+  document.documentElement.classList.add('modal-open');
+  document.body.classList.add('modal-open');
+};
+
+const unlockModalScroll = () => {
+  const isCreativeOpen = creativeModal?.classList.contains('is-open');
+  const isVideoOpen = videoModal?.classList.contains('is-open');
+  const isVpOpen = document.getElementById('vp-modal')?.classList.contains('is-open');
+  if (!isCreativeOpen && !isVideoOpen && !isVpOpen) {
+    document.documentElement.classList.remove('modal-open');
+    document.body.classList.remove('modal-open');
+  }
+};
+
+const openCreativeModal = (cardOrIndex) => {
+  if (!creativeModal) return;
+  let index = 0;
+  if (typeof cardOrIndex === 'number') {
+    index = cardOrIndex;
+  } else if (cardOrIndex && cardOrIndex.dataset && cardOrIndex.dataset.index !== undefined) {
+    index = parseInt(cardOrIndex.dataset.index, 10) || 0;
+  }
+  updateCreativeModalContent(index);
+
+  lockModalScroll();
+  creativeModal.classList.add('is-open');
+  creativeModal.setAttribute('aria-hidden', 'false');
+  creativeModalClose?.focus();
+};
+
+const closeCreativeModal = () => {
+  if (!creativeModal) return;
+  creativeModal.classList.remove('is-open');
+  creativeModal.setAttribute('aria-hidden', 'true');
+  unlockModalScroll();
+};
+
+const showNextCreative = () => {
+  if (!cinemaCards.length) return;
+  const nextIdx = (currentCreativeIndex + 1) % cinemaCards.length;
+  updateCreativeModalContent(nextIdx);
+};
+
+const showPrevCreative = () => {
+  if (!cinemaCards.length) return;
+  const prevIdx = (currentCreativeIndex - 1 + cinemaCards.length) % cinemaCards.length;
+  updateCreativeModalContent(prevIdx);
+};
+
+cinemaCards.forEach((card, idx) => {
+  card.style.cursor = 'pointer';
+  card.addEventListener('click', (e) => {
+    e.stopPropagation();
+    openCreativeModal(idx);
+  });
+});
+
+creativeNavNext?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  showNextCreative();
+});
+
+creativeNavPrev?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  showPrevCreative();
+});
+
+creativeModalClose?.addEventListener('click', closeCreativeModal);
+creativeModalOverlay?.addEventListener('click', closeCreativeModal);
+
+// Motion & Video Preview Modal
+const videoModal = document.getElementById('video-modal');
+const videoModalClose = videoModal?.querySelector('.video-modal-close');
+const videoModalOverlay = videoModal?.querySelector('.video-modal-overlay');
+const videoModalPlayerTitle = videoModal?.querySelector('.video-modal-player-title');
+const videoModalPlayerMeta = videoModal?.querySelector('.video-modal-player-meta');
+const videoModalTitle = videoModal?.querySelector('.video-modal-title');
+const videoModalDesc = videoModal?.querySelector('.video-modal-desc');
+const videoCards = document.querySelectorAll('.video-card');
+
+const openVideoModal = (card) => {
+  if (!videoModal || !card) return;
+  // Intro Video plays inline on the page and should never open in a modal
+  if (card.classList.contains('video-card-featured') || card.querySelector('#neon-rain-video')) return;
+  const { videoTitle, videoDesc, videoMeta, videoTools } = card.dataset;
+
+  if (videoModalPlayerTitle) videoModalPlayerTitle.textContent = videoTitle || '';
+  if (videoModalPlayerMeta) videoModalPlayerMeta.textContent = videoMeta || '';
+  if (videoModalTitle) videoModalTitle.textContent = videoTitle || '';
+  if (videoModalDesc) videoModalDesc.textContent = videoDesc || '';
+
+  const craftChipsWrap = document.getElementById('video-modal-craft-chips');
+  if (craftChipsWrap && videoTools) {
+    craftChipsWrap.innerHTML = videoTools
+      .split('·')
+      .map((item, i) => `<span class="craft-label-chip chip-rot-${(i % 3) + 1}">${item.trim()}</span>`)
+      .join('');
+  }
+
+  lockModalScroll();
+  videoModal.classList.add('is-open');
+  videoModal.setAttribute('aria-hidden', 'false');
+  videoModalClose?.focus();
+};
+
+const closeVideoModal = () => {
+  if (!videoModal) return;
+  videoModal.classList.remove('is-open');
+  videoModal.setAttribute('aria-hidden', 'true');
+  unlockModalScroll();
+};
+
+// ──────────────────────────────────────────────────────────────
+// GLOBAL AUDIO MANAGER
+// Only ONE of the three inline videos can play audio at a time.
+// Registering a video adds it to the pool; calling .requestAudio()
+// mutes all others and unmutes the caller.
+// ──────────────────────────────────────────────────────────────
+const audioManager = (() => {
+  const pool = []; // { videoEl, muteBtn, onMutedChange }
+
+  const muteAll = () => {
+    pool.forEach(({ videoEl, muteBtn, onMutedChange }) => {
+      videoEl.muted = true;
+      if (onMutedChange) onMutedChange(true);
+    });
+  };
+
+  return {
+    register(videoEl, muteBtn, onMutedChange) {
+      pool.push({ videoEl, muteBtn, onMutedChange });
+    },
+    requestAudio(videoEl) {
+      // Mute everyone else
+      pool.forEach((entry) => {
+        if (entry.videoEl !== videoEl) {
+          entry.videoEl.muted = true;
+          if (entry.onMutedChange) entry.onMutedChange(true);
+        }
+      });
+    },
+    muteAll,
+  };
+})();
+
+// ──────────────────────────────────────────────────────────────
+// Video 1 — Intro / NEON RAIN inline player
+// ──────────────────────────────────────────────────────────────
+const liveVideo = document.getElementById('neon-rain-video');
+const liveMuteBtn = document.getElementById('neon-rain-mute-btn');
+const liveScreen = document.getElementById('neon-rain-screen');
+
+if (liveVideo && liveMuteBtn && liveScreen) {
+  liveVideo.muted = true;
+  liveVideo.play().catch(() => {});
+
+  const updateV1UI = (isMuted) => {
+    if (isMuted) {
+      liveMuteBtn.classList.add('is-muted');
+      liveMuteBtn.setAttribute('aria-label', 'Unmute video audio');
+      const text = liveMuteBtn.querySelector('.mute-btn-label');
+      if (text) text.textContent = 'Unmute';
+      liveScreen.classList.remove('is-sound-on');
+    } else {
+      liveMuteBtn.classList.remove('is-muted');
+      liveMuteBtn.setAttribute('aria-label', 'Mute video audio');
+      const text = liveMuteBtn.querySelector('.mute-btn-label');
+      if (text) text.textContent = 'Mute';
+      liveScreen.classList.add('is-sound-on');
     }
   };
 
-  try {
-    if (window.localStorage.getItem('portfolio-easter-hint-dismissed') === 'true') {
-      easterEggHint.classList.add('is-dismissed');
+  audioManager.register(liveVideo, liveMuteBtn, updateV1UI);
+
+  const toggleV1Sound = (e) => {
+    if (e) e.stopPropagation();
+    if (liveVideo.muted) {
+      // Going to unmute — mute all others first
+      audioManager.requestAudio(liveVideo);
+      liveVideo.muted = false;
+      liveVideo.play().catch(() => {});
+    } else {
+      liveVideo.muted = true;
     }
-  } catch {
-    // Storage may be unavailable when the portfolio is opened as a local file.
-  }
-
-  mascot.addEventListener('pointerenter', dismissEasterEggHint, { once: true });
-}
-
-let activeCategoryIndex = 0;
-let categoryScrollFrame = null;
-
-const swapCategoryChit = (nextIndex) => {
-  if (nextIndex === activeCategoryIndex || !categoryChits[nextIndex]) return;
-
-  const direction = nextIndex > activeCategoryIndex ? 1 : -1;
-  const outgoing = categoryChits[activeCategoryIndex];
-  const incoming = categoryChits[nextIndex];
-
-  outgoing.style.setProperty('--swap-out-x', `${direction * -105}px`);
-  outgoing.style.setProperty('--swap-out-turn', `${direction * -10}deg`);
-  incoming.style.setProperty('--swap-in-x', `${direction * 58}px`);
-  incoming.style.setProperty('--swap-in-turn', `${direction * 7}deg`);
-  outgoing.classList.remove('is-active');
-  outgoing.classList.add('is-exiting');
-  incoming.classList.add('is-active', 'is-entering');
-
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => incoming.classList.remove('is-entering'));
-  });
-
-  window.setTimeout(() => outgoing.classList.remove('is-exiting'), 480);
-  activeCategoryIndex = nextIndex;
-};
-
-const updateCategoryChit = () => {
-  categoryScrollFrame = null;
-  if (!workCategories.length || !categoryChits.length) return;
-
-  const focusLine = window.innerHeight * 0.52;
-  let closestIndex = 0;
-  let closestDistance = Number.POSITIVE_INFINITY;
-
-  workCategories.forEach((category, index) => {
-    const bounds = category.getBoundingClientRect();
-    const distance = Math.abs(bounds.top + bounds.height / 2 - focusLine);
-    if (distance < closestDistance) {
-      closestDistance = distance;
-      closestIndex = index;
-    }
-  });
-
-  swapCategoryChit(closestIndex);
-  workCategories.forEach((category, index) => {
-    category.classList.toggle('is-current', index === closestIndex);
-  });
-
-  if (categoryChitStack) {
-    const activeBounds = workCategories[closestIndex].getBoundingClientRect();
-    const moveDistance = Math.max(window.innerHeight * 0.3, 210);
-    const rawProgress = Math.min(Math.max(-activeBounds.top / moveDistance, 0), 1);
-    const easedProgress = 1 - Math.pow(1 - rawProgress, 3);
-    const isDesktop = window.innerWidth > 800;
-    const cornerX = isDesktop
-      ? -(window.innerWidth / 2 - Math.min(235, window.innerWidth * 0.19))
-      : 0;
-    const cornerY = isDesktop ? -window.innerHeight * 0.085 : 0;
-
-    categoryChitStack.style.setProperty('--chit-stage-x', `${cornerX * easedProgress}px`);
-    categoryChitStack.style.setProperty('--chit-stage-y', `${cornerY * easedProgress}px`);
-    categoryChitStack.style.setProperty('--chit-stage-scale', String(1 - easedProgress * 0.48));
-    categoryChitStack.classList.toggle('is-condensed', isDesktop && easedProgress > 0.72);
-  }
-};
-
-if (workCategories.length && categoryChits.length) {
-  const requestCategoryUpdate = () => {
-    if (categoryScrollFrame) return;
-    categoryScrollFrame = requestAnimationFrame(updateCategoryChit);
+    updateV1UI(liveVideo.muted);
   };
 
-  window.addEventListener('scroll', requestCategoryUpdate, { passive: true });
-  window.addEventListener('resize', () => {
-    requestCategoryUpdate();
+  liveMuteBtn.addEventListener('click', toggleV1Sound);
+
+  liveScreen.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (liveVideo.paused) liveVideo.play().catch(() => {});
+    toggleV1Sound();
   });
-  updateCategoryChit();
 }
+
+// ──────────────────────────────────────────────────────────────
+// Video 2 — VELOCITY inline card player
+// ──────────────────────────────────────────────────────────────
+const velocityVideo  = document.getElementById('velocity-video');
+const velocityMuteBtn = document.getElementById('velocity-mute-btn');
+const velocityScreen = document.getElementById('velocity-screen');
+
+if (velocityVideo && velocityMuteBtn) {
+  velocityVideo.muted = true;
+  velocityVideo.play().catch(() => {});
+
+  const updateV2MuteUI = (isMuted) => {
+    if (isMuted) {
+      velocityMuteBtn.classList.add('is-muted');
+      velocityMuteBtn.setAttribute('aria-label', 'Unmute VELOCITY video');
+      const label = velocityMuteBtn.querySelector('.mute-btn-label');
+      if (label) label.textContent = 'Unmute';
+    } else {
+      velocityMuteBtn.classList.remove('is-muted');
+      velocityMuteBtn.setAttribute('aria-label', 'Mute VELOCITY video');
+      const label = velocityMuteBtn.querySelector('.mute-btn-label');
+      if (label) label.textContent = 'Mute';
+    }
+  };
+
+  audioManager.register(velocityVideo, velocityMuteBtn, updateV2MuteUI);
+
+  const toggleV2Sound = (e) => {
+    if (e) e.stopPropagation();
+    if (velocityVideo.muted) {
+      audioManager.requestAudio(velocityVideo);
+      velocityVideo.muted = false;
+      velocityVideo.play().catch(() => {});
+    } else {
+      velocityVideo.muted = true;
+    }
+    updateV2MuteUI(velocityVideo.muted);
+  };
+
+  velocityMuteBtn.addEventListener('click', toggleV2Sound);
+}
+
+// ──────────────────────────────────────────────────────────────
+// Video 3 — SOLARIS inline card player
+// ──────────────────────────────────────────────────────────────
+const solarisVideo  = document.getElementById('solaris-video');
+const solarisMuteBtn = document.getElementById('solaris-mute-btn');
+const solarisScreen = document.getElementById('solaris-screen');
+
+if (solarisVideo && solarisMuteBtn) {
+  solarisVideo.muted = true;
+  solarisVideo.play().catch(() => {});
+
+  const updateV3MuteUI = (isMuted) => {
+    if (isMuted) {
+      solarisMuteBtn.classList.add('is-muted');
+      solarisMuteBtn.setAttribute('aria-label', 'Unmute SOLARIS video');
+      const label = solarisMuteBtn.querySelector('.mute-btn-label');
+      if (label) label.textContent = 'Unmute';
+    } else {
+      solarisMuteBtn.classList.remove('is-muted');
+      solarisMuteBtn.setAttribute('aria-label', 'Mute SOLARIS video');
+      const label = solarisMuteBtn.querySelector('.mute-btn-label');
+      if (label) label.textContent = 'Mute';
+    }
+  };
+
+  audioManager.register(solarisVideo, solarisMuteBtn, updateV3MuteUI);
+
+  const toggleV3Sound = (e) => {
+    if (e) e.stopPropagation();
+    if (solarisVideo.muted) {
+      audioManager.requestAudio(solarisVideo);
+      solarisVideo.muted = false;
+      solarisVideo.play().catch(() => {});
+    } else {
+      solarisVideo.muted = true;
+    }
+    updateV3MuteUI(solarisVideo.muted);
+  };
+
+  solarisMuteBtn.addEventListener('click', toggleV3Sound);
+}
+
+// ──────────────────────────────────────────────────────────────
+// Clean Video Player Modal (.vp-modal) — for Card 2 & 3 click
+// ──────────────────────────────────────────────────────────────
+const vpModal      = document.getElementById('vp-modal');
+const vpOverlay    = document.getElementById('vp-overlay');
+const vpCloseBtn   = document.getElementById('vp-close-btn');
+const vpVideo      = document.getElementById('vp-video');
+const vpTapArea    = document.getElementById('vp-tap-area');
+const vpPlayPause  = document.getElementById('vp-play-pause');
+const vpSeek       = document.getElementById('vp-seek');
+const vpSeekFilled = document.getElementById('vp-seek-filled');
+const vpMuteBtn    = document.getElementById('vp-mute-btn');
+const vpVol        = document.getElementById('vp-vol');
+const vpVolFilled  = document.getElementById('vp-vol-filled');
+const vpTitleLabel = document.getElementById('vp-title-label');
+const vpCurrent    = vpModal?.querySelector('.vp-current');
+const vpDuration   = vpModal?.querySelector('.vp-duration');
+const vpIconPlay   = vpPlayPause?.querySelector('.vp-icon-play');
+const vpIconPause  = vpPlayPause?.querySelector('.vp-icon-pause');
+const vpVolOn      = vpMuteBtn?.querySelector('.vp-vol-on');
+const vpVolOff     = vpMuteBtn?.querySelector('.vp-vol-off');
+
+const fmtTime = (s) => {
+  if (!isFinite(s)) return '0:00';
+  const m = Math.floor(s / 60);
+  const sec = String(Math.floor(s % 60)).padStart(2, '0');
+  return `${m}:${sec}`;
+};
+
+const vpSyncPlayPauseUI = () => {
+  if (!vpVideo) return;
+  const paused = vpVideo.paused;
+  if (vpIconPlay)  vpIconPlay.style.display  = paused ? '' : 'none';
+  if (vpIconPause) vpIconPause.style.display = paused ? 'none' : '';
+  if (vpPlayPause) vpPlayPause.setAttribute('aria-label', paused ? 'Play' : 'Pause');
+};
+
+const vpSyncVolumeUI = () => {
+  if (!vpVideo) return;
+  const m = vpVideo.muted || vpVideo.volume === 0;
+  if (vpVolOn)  vpVolOn.style.display  = m ? 'none' : '';
+  if (vpVolOff) vpVolOff.style.display = m ? '' : 'none';
+  if (vpMuteBtn) vpMuteBtn.setAttribute('aria-label', m ? 'Unmute' : 'Mute');
+  if (vpVolFilled) vpVolFilled.style.width = `${(m ? 0 : vpVideo.volume) * 100}%`;
+  if (vpVol) vpVol.value = m ? 0 : vpVideo.volume;
+};
+
+const openVpModal = (src, title) => {
+  if (!vpModal || !vpVideo) return;
+  // Mute all inline cards while modal is open
+  audioManager.muteAll();
+
+  if (vpTitleLabel) vpTitleLabel.textContent = title || '';
+  vpVideo.src = src;
+  vpVideo.muted = false;
+  vpVideo.volume = 1;
+  vpVideo.load();
+  vpVideo.play().catch(() => {});
+
+  vpSyncPlayPauseUI();
+  vpSyncVolumeUI();
+  if (vpSeekFilled) vpSeekFilled.style.width = '0%';
+  if (vpSeek) vpSeek.value = 0;
+
+  lockModalScroll();
+  vpModal.classList.add('is-open');
+  vpModal.setAttribute('aria-hidden', 'false');
+  vpCloseBtn?.focus();
+};
+
+const closeVpModal = () => {
+  if (!vpModal || !vpVideo) return;
+  vpVideo.pause();
+  vpVideo.src = '';
+  vpModal.classList.remove('is-open');
+  vpModal.setAttribute('aria-hidden', 'true');
+  unlockModalScroll();
+  // Ensure inline background loops continue silently
+  if (velocityVideo && velocityVideo.paused) velocityVideo.play().catch(() => {});
+  if (solarisVideo && solarisVideo.paused) solarisVideo.play().catch(() => {});
+};
+
+if (vpVideo) {
+  vpVideo.addEventListener('timeupdate', () => {
+    if (!vpVideo.duration) return;
+    const pct = (vpVideo.currentTime / vpVideo.duration) * 100;
+    if (vpSeek) vpSeek.value = pct;
+    if (vpSeekFilled) vpSeekFilled.style.width = `${pct}%`;
+    if (vpCurrent) vpCurrent.textContent = fmtTime(vpVideo.currentTime);
+  });
+
+  vpVideo.addEventListener('loadedmetadata', () => {
+    if (vpDuration) vpDuration.textContent = fmtTime(vpVideo.duration);
+  });
+
+  vpVideo.addEventListener('play',  vpSyncPlayPauseUI);
+  vpVideo.addEventListener('pause', vpSyncPlayPauseUI);
+}
+
+vpTapArea?.addEventListener('click', () => {
+  if (!vpVideo) return;
+  vpVideo.paused ? vpVideo.play().catch(() => {}) : vpVideo.pause();
+});
+
+vpPlayPause?.addEventListener('click', () => {
+  if (!vpVideo) return;
+  vpVideo.paused ? vpVideo.play().catch(() => {}) : vpVideo.pause();
+});
+
+vpSeek?.addEventListener('input', () => {
+  if (!vpVideo || !vpVideo.duration) return;
+  vpVideo.currentTime = (Number(vpSeek.value) / 100) * vpVideo.duration;
+  if (vpSeekFilled) vpSeekFilled.style.width = `${vpSeek.value}%`;
+});
+
+vpMuteBtn?.addEventListener('click', () => {
+  if (!vpVideo) return;
+  vpVideo.muted = !vpVideo.muted;
+  vpSyncVolumeUI();
+});
+
+vpVol?.addEventListener('input', () => {
+  if (!vpVideo) return;
+  vpVideo.volume = Number(vpVol.value);
+  vpVideo.muted = Number(vpVol.value) === 0;
+  vpSyncVolumeUI();
+});
+
+vpCloseBtn?.addEventListener('click', closeVpModal);
+vpOverlay?.addEventListener('click', closeVpModal);
+
+// Keyboard: Esc closes the modal, space toggles play
+document.addEventListener('keydown', (e) => {
+  if (!vpModal?.classList.contains('is-open')) return;
+  if (e.key === 'Escape') closeVpModal();
+  if (e.key === ' ' || e.key === 'Spacebar') {
+    e.preventDefault();
+    vpVideo?.paused ? vpVideo.play().catch(() => {}) : vpVideo?.pause();
+  }
+});
+
+// Wire Video Cards:
+// - Video 1 (Intro Video): stays inline, never opens modal
+// - Video 2 & 3: clicking card or open button opens clean vp-modal
+// - Other placeholder cards: open legacy video modal
+videoCards.forEach((card) => {
+  card.addEventListener('click', (e) => {
+    // If user clicked the inline mute button, do not open the modal
+    if (e.target.closest('.video-inline-mute-btn')) return;
+
+    // Intro Video plays inline on the page and never opens in a modal
+    if (card.classList.contains('video-card-featured') || card.querySelector('#neon-rain-video')) return;
+
+    // Card with custom video source opens clean player modal
+    const videoSrc = card.dataset.videoSrc;
+    if (videoSrc) {
+      openVpModal(videoSrc, card.dataset.videoTitle || 'Video Player');
+      return;
+    }
+
+    openVideoModal(card);
+  });
+});
+
+videoModalClose?.addEventListener('click', closeVideoModal);
+videoModalOverlay?.addEventListener('click', closeVideoModal);
+
+// Prevent background window scroll leakage while modal is open
+[creativeModal, videoModal, vpModal].forEach((modal) => {
+  if (!modal) return;
+  modal.addEventListener('wheel', (e) => {
+    const shell = modal.querySelector('.creative-modal-shell, .video-modal-shell');
+    if (shell && shell.contains(e.target)) {
+      const { scrollTop, scrollHeight, clientHeight } = shell;
+      const isScrollable = scrollHeight > clientHeight;
+      if (isScrollable) {
+        const isAtTop = scrollTop <= 0 && e.deltaY < 0;
+        const isAtBottom = scrollTop + clientHeight >= scrollHeight && e.deltaY > 0;
+        if (isAtTop || isAtBottom) {
+          e.preventDefault();
+        }
+        return;
+      }
+    }
+    e.preventDefault();
+  }, { passive: false });
+
+  modal.addEventListener('touchmove', (e) => {
+    const shell = modal.querySelector('.creative-modal-shell, .video-modal-shell');
+    if (!shell || !shell.contains(e.target)) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+});
+
+document.addEventListener('keydown', (e) => {
+  if (creativeModal?.classList.contains('is-open')) {
+    if (e.key === 'ArrowRight') {
+      showNextCreative();
+      return;
+    }
+    if (e.key === 'ArrowLeft') {
+      showPrevCreative();
+      return;
+    }
+  }
+  if (e.key === 'Escape') {
+    closeCreativeModal();
+    closeVideoModal();
+  }
+});
 
 if (
   peekCharacter &&
@@ -317,7 +842,8 @@ if (nav && mascot && mascotLinks.length) {
   const moveMascotTo = (link) => {
     const navBox = nav.getBoundingClientRect();
     const linkBox = link.getBoundingClientRect();
-    const mascotHomeCenter = navBox.left + mascot.offsetLeft + mascot.offsetWidth / 2;
+    const slot = mascot.closest('.nav-smile-slot') || mascot;
+    const mascotHomeCenter = navBox.left + slot.offsetLeft + slot.offsetWidth / 2;
     const distance = linkBox.left + linkBox.width / 2 - mascotHomeCenter;
     const state = link.classList.contains('nav-about')
       ? 'mascot-at-about'
@@ -833,4 +1359,24 @@ if (
   });
 
   window.addEventListener('resize', updateGameMeasurements);
+}
+
+// Design Orbit Featured Card Click Navigation
+const designOrbitCard = document.querySelector('.exp-card-featured');
+if (designOrbitCard) {
+  designOrbitCard.style.cursor = 'pointer';
+  designOrbitCard.setAttribute('tabindex', '0');
+  designOrbitCard.setAttribute('role', 'link');
+  designOrbitCard.setAttribute('aria-label', 'Open Design Orbit case study and program tour');
+  designOrbitCard.addEventListener('click', (e) => {
+    if (!e.target.closest('a')) {
+      window.location.href = 'design-orbit.html';
+    }
+  });
+  designOrbitCard.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      window.location.href = 'design-orbit.html';
+    }
+  });
 }

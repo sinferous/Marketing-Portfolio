@@ -1,0 +1,6 @@
+node_modules/
+package-lock.json
+*.log
+Videos/*_orig_backup.mp4
+.DS_Store
+Thumbs.db

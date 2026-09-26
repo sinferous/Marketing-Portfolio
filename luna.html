@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luna — The Desktop Hydration Companion · Case Study</title>
+    <meta
+      name="description"
+      content="A charming, lightweight desktop companion built for macOS & Windows with native Swift/SpriteKit and Electron/Canvas to keep deep-focus workers hydrated."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="luna.css" />
+  </head>
+  <body class="luna-page">
+    <!-- Ambient Canvas Glows -->
+    <div class="luna-glow glow-top-cyan" aria-hidden="true"></div>
+    <div class="luna-glow glow-mid-pink" aria-hidden="true"></div>
+
+    <!-- Top Sticky Header -->
+    <header class="luna-nav">
+      <div class="luna-nav-shell">
+        <a href="index.html#experimental" class="luna-back-btn" id="nav-back-portfolio">
+          <span class="back-arrow">←</span>
+          <span>Back to Portfolio</span>
+        </a>
+
+        <div class="luna-nav-center">
+          <span class="luna-dot-live"></span>
+          <span class="luna-pill-tag">Luna Companion OS · Desktop Engineering Study</span>
+        </div>
+
+        <div class="luna-nav-right">
+          <a href="mailto:sinferous32@gmail.com" class="luna-contact-btn">Get in Touch ↗</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="luna-container">
+      <!-- Hero Section -->
+      <section class="luna-hero">
+        <div class="luna-hero-kicker">
+          <img src="assets/luna/luna-avatar.png" alt="Luna Avatar" class="luna-kicker-avatar" />
+          <span class="luna-kicker-badge">✦ Desktop Companion &amp; Productivity OS</span>
+          <span class="luna-kicker-doodle">"turns desk fatigue into mindful micro-breaks" 💧🐾</span>
+        </div>
+
+        <h1 class="luna-title">
+          Luna — The Desktop <span class="luna-title-gradient">Hydration Companion</span>
+        </h1>
+
+        <p class="luna-gist">
+          A charming desktop companion built to keep deep-focus workers hydrated. Cross-platform native Swift/SpriteKit &amp; Electron/Canvas pet that physically sprints to the center of your screen when it’s time to hydrate.
+        </p>
+
+        <!-- Role & Scope Badges -->
+        <div class="luna-meta-panel">
+          <div class="luna-meta-item">
+            <span class="luna-meta-label">My Role</span>
+            <strong class="luna-meta-val highlight-cyan">Lead Designer &amp; Software Engineer</strong>
+          </div>
+          <div class="luna-meta-divider"></div>
+          <div class="luna-meta-item">
+            <span class="luna-meta-label">Architecture &amp; Scope</span>
+            <strong class="luna-meta-val">Native Swift/SpriteKit, Electron, Procedural SVG Vector Math &amp; ScreenNavigator</strong>
+          </div>
+          <div class="luna-meta-divider"></div>
+          <div class="luna-meta-item">
+            <span class="luna-meta-label">Environment</span>
+            <strong class="luna-meta-val">macOS &amp; Windows · 100% Offline &amp; Silent · Zero Telemetry</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- The Challenge & Solution Grid -->
+      <section class="luna-narrative-grid">
+        <!-- Challenge Card -->
+        <div class="luna-card">
+          <span class="card-kicker">The Friction</span>
+          <h2>The Challenge</h2>
+          <p class="luna-card-text">
+            Working long hours at a computer often means forgetting to drink water. Sterile system popups get swiped away, while intrusive alerts disrupt intense creative flow.
+          </p>
+          <div class="breakdown-list">
+            <div class="breakdown-item">
+              <span class="breakdown-icon">🔔</span>
+              <div>
+                <strong>Notification Blindness:</strong>
+                <span>Developers and designers reflexively dismiss OS banner alerts and calendar reminders without ever taking a sip.</span>
+              </div>
+            </div>
+            <div class="breakdown-item">
+              <span class="breakdown-icon">🔇</span>
+              <div>
+                <strong>Disruptive Audio Warnings:</strong>
+                <span>Beeps and chimes cause sudden irritation during deep code focus or embarrassingly interrupt live client calls.</span>
+              </div>
+            </div>
+            <div class="breakdown-item">
+              <span class="breakdown-icon">🪟</span>
+              <div>
+                <strong>Desktop Clutter &amp; Click Blocking:</strong>
+                <span>Conventional desktop widgets trap mouse clicks in rectangular windows, constantly blocking clicks to underlying IDEs and Figma canvases.</span>
+              </div>
+            </div>
+          </div>
+          <p class="card-quote">
+            “Sterile system popups fail because they don’t command real emotional presence. We needed a gentle, living physical cue.”
+          </p>
+        </div>
+
+        <!-- Solution Card -->
+        <div class="luna-card">
+          <span class="card-kicker">The Architecture</span>
+          <h2>The Solution</h2>
+          <p class="luna-card-text">
+            Built <strong>Luna</strong>—a lightweight, cross-platform desktop pet for Windows and macOS that roams seamlessly across multiple displays and sprints to the screen center when it’s time to hydrate.
+          </p>
+          <div class="pillars-grid">
+            <div class="pillar-item">
+              <div class="pillar-num">01</div>
+              <div>
+                <h3>Physical Center-Screen Sprint</h3>
+                <p>Instead of ignorable toasts, Luna physically gallops to display center with actionable hydration reminders and stays until acknowledged.</p>
+              </div>
+            </div>
+            <div class="pillar-item">
+              <div class="pillar-num">02</div>
+              <div>
+                <h3>Per-Pixel Click-Through Transparency</h3>
+                <p>Transparent pixel regions pass mouse clicks directly to your underlying code editors and design tools, with zero click dead-zones.</p>
+              </div>
+            </div>
+            <div class="pillar-item">
+              <div class="pillar-num">03</div>
+              <div>
+                <h3>Multi-Monitor Pathfinding</h3>
+                <p>Custom ScreenNavigator tracks multi-display virtual topology, bridging disparate resolutions, refresh rates, and DPI scales.</p>
+              </div>
+            </div>
+            <div class="pillar-item">
+              <div class="pillar-num">04</div>
+              <div>
+                <h3>Procedural Vector Animation</h3>
+                <p>38+ frames across 14 emotional states generated dynamically via vector math from a single base SVG with zero bulky sprite sheets.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Performance & Architecture Stats -->
+      <section class="luna-stats-deck">
+        <div class="luna-stat-card">
+          <span class="stat-icon">💧</span>
+          <div class="stat-number stat-number-cyan">100%</div>
+          <h3>Hydration Compliance</h3>
+          <p>Physical screen center sprint eliminates popup blindness across 8-hour sprint sessions.</p>
+        </div>
+        <div class="luna-stat-card">
+          <span class="stat-icon">⚡</span>
+          <div class="stat-number stat-number-cyan">&lt; 18 MB</div>
+          <h3>Runtime RAM Footprint</h3>
+          <p>Procedural vector math keeps the executable tiny and instant without shipping video assets.</p>
+        </div>
+        <div class="luna-stat-card">
+          <span class="stat-icon">🖥️</span>
+          <div class="stat-number stat-number-cyan">Multi-Display</div>
+          <h3>Virtual Topology</h3>
+          <p>Seamlessly traverses across dual 4K + ultrawide layouts with automatic display edge docking.</p>
+        </div>
+        <div class="luna-stat-card">
+          <span class="stat-icon">🔒</span>
+          <div class="stat-number stat-number-cyan">100% Offline</div>
+          <h3>Zero Telemetry</h3>
+          <p>Zero network requests, zero background tracking, and intentionally silent for office focus.</p>
+        </div>
+      </section>
+
+      <!-- Bottom Summary & Back to Portfolio Navigation -->
+      <section class="luna-footer-cta">
+        <h2>Mindful Micro-Breaks for Deep-Focus Work</h2>
+        <p>
+          Luna proves how playful design, native systems engineering, and ergonomics can merge to make daily desk work healthier and more enjoyable.
+        </p>
+        <div class="luna-footer-actions">
+          <a href="index.html#experimental" class="btn-luna-back">
+            <span>← Back to Main Portfolio</span>
+          </a>
+          <a href="mailto:sinferous32@gmail.com" class="btn-luna-talk">
+            <span>Get in Touch with Varun ↗</span>
+          </a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

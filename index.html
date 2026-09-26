@@ -10,69 +10,80 @@
   <body>
     <header class="site-header">
       <nav class="nav" aria-label="Main navigation">
-        <button class="nav-smile" type="button" aria-label="Playful portfolio mascot">
-          <svg class="mascot-small" viewBox="0 0 32 32" aria-hidden="true">
-            <circle class="mascot-eye" cx="11" cy="12" r="1.15" />
-            <circle class="mascot-eye" cx="21" cy="12" r="1.15" />
-            <path d="M10 18c4 5 9 5 13 0" />
-          </svg>
-          <svg class="mascot-face" viewBox="110 130 395 230" aria-hidden="true">
-            <g class="about-face-head">
-              <path d="M247.09 196.77c.09 49.11 36.14 80.4 60.6 78.44 23.77-1.9 52.24-36.47 46.2-82.86" stroke-width="10" />
-              <polyline points="238.24 176.55 244.99 155.85 268.84 176.55 272.44 145.05 300.9 172.05 303.94 149.1 326.89 168 349.39 148.2 354.71 179.7" stroke-width="10" />
-              <path d="M362.44 186.9c10.52-.97 19.37 7.37 19.35 16.95-.02 8.77-7.48 16.62-17.1 16.95" stroke-width="10" />
-              <path d="M236.24 191.43c-10.52-.97-19.37 7.37-19.35 16.95.02 8.77 7.48 16.62 17.1 16.95" stroke-width="10" />
-            </g>
-            <g class="about-face-features">
-              <line x1="306.41" y1="232.43" x2="306.41" y2="240.45" stroke-width="3" />
-              <circle class="mascot-eye" cx="288.46" cy="231.98" r="6.65" />
-              <circle class="mascot-eye" cx="324.36" cy="233.83" r="6.65" />
-              <path d="M281.81 248.32c1.22 1.38 9.42 10.35 22.95 10.35s21.73-8.97 22.95-10.35" stroke-width="6" />
-            </g>
-            <path class="about-accent about-accent-squiggle" d="M418.65 331.25c7.78-5.38 21.12-16.39 28.2-34.67 7.83-20.22 6.8-46.2 0-48.12-8.23-2.33-30.64 29-22.2 41.4 5.57 8.18 23.08 5.93 33 2.4 21.06-7.5 29.12-28.32 30.6-32.35" stroke-width="10" />
-            <path class="about-accent about-accent-spark" d="M151.07 253.5c.91 3.07 6.82 21.91 26.4 31.28 15.97 7.63 30.82 4.09 34.8 3-3.56 1.88-13.41 7.67-19.2 19.85-7.8 16.4-2.28 31.83-1.2 34.69-3.14-4.65-11.17-15.2-25.8-21.54-18.83-8.15-35.88-3.84-40.8-2.4 4.34-1.36 16.08-5.69 24-17.52 14.23-21.25 2.39-46.16 1.8-47.35Z" stroke-width="10" />
-          </svg>
-          <svg class="mascot-work-icon" viewBox="140 45 285 295" aria-hidden="true">
-            <g class="work-card-shell">
-              <path d="M242.14 165.83l-36.9 4.05s-19.8 123.75-8.1 147.15l153 4.95V165.83l-52.5-3.15" stroke-width="6" />
-              <path d="M271.79 60.22s-.78 86.4 20.52 118.5l-42.6-1.2s-17.4-39.9-20.7-100.2" stroke-width="6" />
-              <polygon class="work-strap-fill" points="286.91 65.93 274.33 110.05 285.76 165.58 305.81 162.67 315.41 65.93 297.64 75.53 286.91 65.93" />
-            </g>
-            <g class="work-card-face">
-              <g class="work-face-head">
-              <polyline points="234.94 227.48 238.54 214.42 251.14 216.68 253.84 203.81 271.79 218.78 288.04 202.58 289.54 220.8 302.74 210.68 306.34 229.58" stroke-width="6" />
-              <path d="M302.04 245.78c5.55 18.33 1.13 36.24-10.73 45.3-1.25.95-9.34 6.96-19.27 6-16.87-1.63-30.7-22.45-33.8-52.5" stroke-width="6" />
-              <path d="M306.34 244.57c5.59-.38 10.57 3.37 11.7 8.55 1.23 5.65-2.43 11.59-8.4 13.05M231.98 246.57c-5.47 1.21-9.19 6.22-8.82 11.5.41 5.77 5.6 10.44 11.74 10.15" stroke-width="6" />
+        <div class="nav-smile-slot">
+          <span class="easter-egg-hint" id="easter-egg-hint" aria-hidden="true">
+            <span class="egg-hint-text">
+              <span class="hint-line">psst...</span>
+              <span class="hint-line">click 5 times</span>
+            </span>
+            <svg class="egg-hint-arrow" viewBox="0 0 48 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path class="egg-hint-line" d="M 4 4 C 14 16, 28 18, 40 14" />
+              <path class="egg-hint-head" d="M 32 9 L 41 14 L 33 19" />
+            </svg>
+          </span>
+          <button class="nav-smile" type="button" aria-label="Playful portfolio mascot">
+            <svg class="mascot-small" viewBox="0 0 32 32" aria-hidden="true">
+              <circle class="mascot-eye" cx="11" cy="12" r="1.15" />
+              <circle class="mascot-eye" cx="21" cy="12" r="1.15" />
+              <path d="M10 18c4 5 9 5 13 0" />
+            </svg>
+            <svg class="mascot-face" viewBox="110 130 395 230" aria-hidden="true">
+              <g class="about-face-head">
+                <path d="M247.09 196.77c.09 49.11 36.14 80.4 60.6 78.44 23.77-1.9 52.24-36.47 46.2-82.86" stroke-width="10" />
+                <polyline points="238.24 176.55 244.99 155.85 268.84 176.55 272.44 145.05 300.9 172.05 303.94 149.1 326.89 168 349.39 148.2 354.71 179.7" stroke-width="10" />
+                <path d="M362.44 186.9c10.52-.97 19.37 7.37 19.35 16.95-.02 8.77-7.48 16.62-17.1 16.95" stroke-width="10" />
+                <path d="M236.24 191.43c-10.52-.97-19.37 7.37-19.35 16.95.02 8.77 7.48 16.62 17.1 16.95" stroke-width="10" />
               </g>
-              <g class="work-face-features">
-              <circle class="mascot-eye" cx="258.35" cy="251.55" r="4.98" />
-              <circle class="mascot-eye" cx="285.22" cy="252.93" r="4.98" />
-              <line x1="272.81" y1="261.9" x2="272.81" y2="266.83" stroke-width="3" />
-              <path d="M258.74 272.33c.75.85 5.77 6.35 14.07 6.35s13.33-5.5 14.07-6.35" stroke-width="6" />
+              <g class="about-face-features">
+                <line x1="306.41" y1="232.43" x2="306.41" y2="240.45" stroke-width="3" />
+                <circle class="mascot-eye" cx="288.46" cy="231.98" r="6.65" />
+                <circle class="mascot-eye" cx="324.36" cy="233.83" r="6.65" />
+                <path d="M281.81 248.32c1.22 1.38 9.42 10.35 22.95 10.35s21.73-8.97 22.95-10.35" stroke-width="6" />
               </g>
-            </g>
-            <g class="work-accent work-accent-rays">
-              <path d="M179.12 167.1c-8.81 1.02-19.24-2.86-25.2-9.45 8.82-1.05 19.23 2.89 25.2 9.45Z" />
-              <path d="M184.97 155.14c-6.76-2.72-11.64-9.8-11.7-17.1 6.75 2.67 11.63 9.85 11.7 17.1Z" />
-              <path d="M201.64 149.29c-5.85-5.43-8.68-14.74-6.75-22.5 5.88 5.42 8.65 14.74 6.75 22.5Z" />
-            </g>
-            <polygon class="work-accent work-accent-pointer" points="371.74 214.42 406.39 224.77 400.09 239.17 406.39 246.82 400.99 253.12 393.34 246.37 386.14 253.12 371.74 214.42" stroke-width="6" />
-          </svg>
-          <svg class="mascot-connect-icon" viewBox="195 170 155 150" aria-hidden="true">
-            <g class="connect-face-head">
-              <polyline points="222.69 223.03 227.28 181.21 245.07 207.15 268.83 185.77 276.77 202.6 290.21 188.11 299.13 210.25 322.83 191.69 318.14 215.17" stroke-width="6" />
-              <path d="M224.21 232.99c4.68 43.37 28.44 72.77 51.75 73.8 13.98.62 25.41-9.07 27.45-10.8 15.45-13.1 21.53-35.69 15.75-58.5" stroke-width="6" />
-              <path d="M325.4 237.32c5.59-.38 10.57 3.37 11.7 8.55 1.23 5.65-2.43 11.59-8.4 13.05M216.6 243.35c-5.24 1.97-8.23 7.45-7.11 12.62 1.22 5.65 7.01 9.55 13.05 8.4" stroke-width="6" />
-            </g>
-            <g class="connect-face-features">
-              <circle class="mascot-eye" cx="268.3" cy="226.89" r="4.98" />
-              <circle class="mascot-eye" cx="292.66" cy="228.01" r="4.98" />
-              <line x1="280.25" y1="240.88" x2="280.25" y2="245.81" stroke-width="3" />
-              <path d="M259.35 258.23c1.02.85 7.86 6.35 19.14 6.35s18.13-5.5 19.14-6.35" stroke-width="6" />
-            </g>
-          </svg>
-          <span class="easter-egg-hint" aria-hidden="true">happiness is the key</span>
-        </button>
+              <path class="about-accent about-accent-squiggle" d="M418.65 331.25c7.78-5.38 21.12-16.39 28.2-34.67 7.83-20.22 6.8-46.2 0-48.12-8.23-2.33-30.64 29-22.2 41.4 5.57 8.18 23.08 5.93 33 2.4 21.06-7.5 29.12-28.32 30.6-32.35" stroke-width="10" />
+              <path class="about-accent about-accent-spark" d="M151.07 253.5c.91 3.07 6.82 21.91 26.4 31.28 15.97 7.63 30.82 4.09 34.8 3-3.56 1.88-13.41 7.67-19.2 19.85-7.8 16.4-2.28 31.83-1.2 34.69-3.14-4.65-11.17-15.2-25.8-21.54-18.83-8.15-35.88-3.84-40.8-2.4 4.34-1.36 16.08-5.69 24-17.52 14.23-21.25 2.39-46.16 1.8-47.35Z" stroke-width="10" />
+            </svg>
+            <svg class="mascot-work-icon" viewBox="140 45 285 295" aria-hidden="true">
+              <g class="work-card-shell">
+                <path d="M242.14 165.83l-36.9 4.05s-19.8 123.75-8.1 147.15l153 4.95V165.83l-52.5-3.15" stroke-width="6" />
+                <path d="M271.79 60.22s-.78 86.4 20.52 118.5l-42.6-1.2s-17.4-39.9-20.7-100.2" stroke-width="6" />
+                <polygon class="work-strap-fill" points="286.91 65.93 274.33 110.05 285.76 165.58 305.81 162.67 315.41 65.93 297.64 75.53 286.91 65.93" />
+              </g>
+              <g class="work-card-face">
+                <g class="work-face-head">
+                <polyline points="234.94 227.48 238.54 214.42 251.14 216.68 253.84 203.81 271.79 218.78 288.04 202.58 289.54 220.8 302.74 210.68 306.34 229.58" stroke-width="6" />
+                <path d="M302.04 245.78c5.55 18.33 1.13 36.24-10.73 45.3-1.25.95-9.34 6.96-19.27 6-16.87-1.63-30.7-22.45-33.8-52.5" stroke-width="6" />
+                <path d="M306.34 244.57c5.59-.38 10.57 3.37 11.7 8.55 1.23 5.65-2.43 11.59-8.4 13.05M231.98 246.57c-5.47 1.21-9.19 6.22-8.82 11.5.41 5.77 5.6 10.44 11.74 10.15" stroke-width="6" />
+                </g>
+                <g class="work-face-features">
+                <circle class="mascot-eye" cx="258.35" cy="251.55" r="4.98" />
+                <circle class="mascot-eye" cx="285.22" cy="252.93" r="4.98" />
+                <line x1="272.81" y1="261.9" x2="272.81" y2="266.83" stroke-width="3" />
+                <path d="M258.74 272.33c.75.85 5.77 6.35 14.07 6.35s13.33-5.5 14.07-6.35" stroke-width="6" />
+                </g>
+              </g>
+              <g class="work-accent work-accent-rays">
+                <path d="M179.12 167.1c-8.81 1.02-19.24-2.86-25.2-9.45 8.82-1.05 19.23 2.89 25.2 9.45Z" />
+                <path d="M184.97 155.14c-6.76-2.72-11.64-9.8-11.7-17.1 6.75 2.67 11.63 9.85 11.7 17.1Z" />
+                <path d="M201.64 149.29c-5.85-5.43-8.68-14.74-6.75-22.5 5.88 5.42 8.65 14.74 6.75 22.5Z" />
+              </g>
+              <polygon class="work-accent work-accent-pointer" points="371.74 214.42 406.39 224.77 400.09 239.17 406.39 246.82 400.99 253.12 393.34 246.37 386.14 253.12 371.74 214.42" stroke-width="6" />
+            </svg>
+            <svg class="mascot-connect-icon" viewBox="195 170 155 150" aria-hidden="true">
+              <g class="connect-face-head">
+                <polyline points="222.69 223.03 227.28 181.21 245.07 207.15 268.83 185.77 276.77 202.6 290.21 188.11 299.13 210.25 322.83 191.69 318.14 215.17" stroke-width="6" />
+                <path d="M224.21 232.99c4.68 43.37 28.44 72.77 51.75 73.8 13.98.62 25.41-9.07 27.45-10.8 15.45-13.1 21.53-35.69 15.75-58.5" stroke-width="6" />
+                <path d="M325.4 237.32c5.59-.38 10.57 3.37 11.7 8.55 1.23 5.65-2.43 11.59-8.4 13.05M216.6 243.35c-5.24 1.97-8.23 7.45-7.11 12.62 1.22 5.65 7.01 9.55 13.05 8.4" stroke-width="6" />
+              </g>
+              <g class="connect-face-features">
+                <circle class="mascot-eye" cx="268.3" cy="226.89" r="4.98" />
+                <circle class="mascot-eye" cx="292.66" cy="228.01" r="4.98" />
+                <line x1="280.25" y1="240.88" x2="280.25" y2="245.81" stroke-width="3" />
+                <path d="M259.35 258.23c1.02.85 7.86 6.35 19.14 6.35s18.13-5.5 19.14-6.35" stroke-width="6" />
+              </g>
+            </svg>
+          </button>
+        </div>
         <a class="nav-link nav-about" href="#about">
           <span class="nav-label">About</span>
           <span class="nav-note">the human bit</span>
@@ -177,7 +188,7 @@
             <div class="hero-copy">
               <p class="signature">Your Name <span>✦</span></p>
               <p class="eyebrow">Creative Designer</p>
-              <h1 id="hero-title">Digital work<br />should feel <span>human.</span></h1>
+              <p class="hero-hidden-title">Digital work<br />should feel <span>human.</span></p>
               <p class="hero-intro">
                 I build thoughtful websites and experiences with a little<br class="desktop-break" />
                 personality, plenty of clarity, and just enough play.
@@ -225,131 +236,520 @@
       </section>
 
       <section class="work-section" id="work" aria-labelledby="work-title">
-        <img class="work-side-doodle work-cat" src="doodles/file-03.svg" data-depth="12" alt="" aria-hidden="true" />
-        <img class="work-side-doodle work-flowers" src="doodles/file-13.svg" data-depth="-14" alt="" aria-hidden="true" />
-        <img class="work-side-doodle work-fish" src="doodles/file-02.svg" data-depth="-16" alt="" aria-hidden="true" />
-        <img class="work-side-doodle work-bird" src="doodles/file-11.svg" data-depth="15" alt="" aria-hidden="true" />
-        <img class="work-side-doodle work-computer" src="doodles/file-12.svg" data-depth="-17" alt="" aria-hidden="true" />
-        <img class="work-side-doodle work-gundam" src="doodles/file-10.svg" data-depth="19" alt="" aria-hidden="true" />
-
         <div class="work-inner">
           <header class="work-heading">
-            <span class="work-tape" aria-hidden="true"></span>
-            <p>selected work</p>
-            <h2 id="work-title">Things I’ve made</h2>
-            <small>Experiments, systems, stories &amp; screens.</small>
+            <div class="work-heading-kicker">
+              <span class="kicker-spark">✦</span>
+              <span>Selected Portfolio Works</span>
+              <span class="kicker-spark">✦</span>
+            </div>
+
+            <div class="work-title-wrap">
+              <h2 id="work-title">Things I’ve made</h2>
+            </div>
+
+            <div class="work-scroll-invite" aria-hidden="true">
+              <span class="invite-arrow">↓</span>
+              <span>scroll down to glide through the reel</span>
+            </div>
+
           </header>
 
-          <div class="category-chit-stack" aria-hidden="true">
-            <div class="category-chit chit-lined is-active" data-chit="0"><img src="doodles/2nd file-06.webp" alt="" /><span>AI Visual Campaigns</span></div>
-            <div class="category-chit chit-coral" data-chit="1"><img src="doodles/2nd file-03.webp" alt="" /><span>Motion Design</span></div>
-            <div class="category-chit chit-grid" data-chit="2"><img src="doodles/2nd file-04.webp" alt="" /><span>UI Experiences</span></div>
-            <div class="category-chit chit-yellow" data-chit="3"><img src="doodles/2nd file-05.webp" alt="" /><span>Brand Systems</span></div>
-            <div class="category-chit chit-dark" data-chit="4"><img src="doodles/2nd file-06.webp" alt="" /><span>Experimental Concepts</span></div>
-          </div>
-
-          <div class="work-categories">
-            <section class="work-category ai-campaign-category layout-cinema">
-              <header class="category-heading"><span>01</span><h3>AI Visual Campaigns</h3></header>
-              <div class="category-projects">
-                <article class="work-card support-one tilt-left">
-                  <div class="project-media project-media-nimbu">
-                    <img src="doodles/nimbu.webp" alt="NIMBU sparkling citrus drink campaign" loading="lazy" decoding="async" />
+          <!-- Pinned Horizontal Cinematic Reel -->
+          <div class="work-reel-pin" id="work-reel-pin">
+            <div class="work-reel-sticky">
+              <header class="reel-hud">
+                <div class="reel-hud-left">
+                  <span class="reel-kicker">✦ Series 01</span>
+                  <h3 class="reel-category-title">AI Visual Campaigns</h3>
+                </div>
+                <div class="reel-hud-center">
+                  <div class="reel-progress-track" aria-hidden="true">
+                    <div class="reel-progress-fill"></div>
                   </div>
-                </article>
-                <article class="work-card is-featured tilt-right">
-                  <div class="project-media project-media-mitti">
-                    <img src="doodles/mitti.webp" alt="MITTI No. 07 fragrance campaign" loading="lazy" decoding="async" />
-                  </div>
-                </article>
-                <article class="work-card support-two tilt-right">
-                  <div class="project-media project-media-raga">
-                    <img src="doodles/raga.webp" alt="RAGA wireless headphones campaign" loading="lazy" decoding="async" />
-                  </div>
-                </article>
-                <article class="work-card support-three tilt-left">
-                  <div class="project-media project-media-monsoon">
-                    <img src="doodles/monsoon-club.webp" alt="MONSOON CLUB sneaker campaign" loading="lazy" decoding="async" />
-                  </div>
-                </article>
-              </div>
-            </section>
+                </div>
+                <div class="reel-hud-right">
+                  <span class="reel-counter"><b class="reel-current-num">01</b> <span class="reel-divider">/</span> 04</span>
+                  <span class="reel-hint" aria-hidden="true">scroll to glide ➔</span>
+                </div>
+              </header>
 
-            <section class="work-category category-reverse layout-mirror">
-              <header class="category-heading"><span>02</span><h3>Motion Design</h3></header>
-              <div class="category-projects">
-                <article class="work-card support-one tilt-right">
-                  <div class="project-placeholder look-sun"><span>image placeholder</span></div>
-                </article>
-                <article class="work-card is-featured tilt-left">
-                  <div class="project-placeholder look-mint"><span>image placeholder</span></div>
-                </article>
-                <article class="work-card support-two tilt-left">
-                  <div class="project-placeholder look-blue"><span>image placeholder</span></div>
-                </article>
-                <article class="work-card support-three tilt-right">
-                  <div class="project-placeholder look-pink"><span>image placeholder</span></div>
-                </article>
-              </div>
-            </section>
+              <div class="work-reel-viewport" tabindex="0" aria-label="Horizontal showcase of AI Visual Campaigns">
+                <div class="work-reel-track">
+                  
+                  <!-- Campaign 1: Naran's Benne Butten -->
+                  <article class="cinema-card cinema-card-narans is-active" data-index="0" 
+                    data-title="Naran's Benne Butten"
+                    data-badge="Packaged Goods · Commercial"
+                    data-tags="Bakery Packaging, Product Staging, Brand Identity"
+                    data-desc="A warm, crunchy tribute to heritage Indian bakery traditions—blending morning chai rituals with vivid product staging, dynamic lighting, and punchy packaging art direction."
+                    data-img="Images/Image 1.png"
+                    style="--card-tint: #e65133;">
+                    <span class="cinema-tape" aria-hidden="true"></span>
+                    <span class="cinema-card-index" aria-hidden="true">01</span>
+                    <div class="cinema-media">
+                      <img src="Images/Image 1.png" alt="Naran's Benne Butten Bread Rusk packaging campaign" loading="lazy" decoding="async" />
+                      <span class="cinema-media-badge">Brand Campaign</span>
+                      <div class="cinema-media-zoom" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                        <span>Click to view large</span>
+                      </div>
+                    </div>
+                    <div class="cinema-meta">
+                      <div class="cinema-tag-row">
+                        <span class="cinema-tag">Bakery Packaging</span>
+                        <span class="cinema-tag">Product Staging</span>
+                        <span class="cinema-tag">Brand Identity</span>
+                      </div>
+                      <h4 class="cinema-title">Naran's Benne Butten</h4>
+                      <p class="cinema-desc">A little break, a lot of crunch—celebrating iconic butter rusks with tactile packaging design and morning chai staging.</p>
+                      <span class="cinema-view-cue">Click to view full image ↗</span>
+                    </div>
+                  </article>
 
-            <section class="work-category layout-diagonal">
-              <header class="category-heading"><span>03</span><h3>UI Experiences</h3></header>
-              <div class="category-projects">
-                <article class="work-card support-one tilt-left">
-                  <div class="project-placeholder look-grid"><span>image placeholder</span></div>
-                </article>
-                <article class="work-card support-three tilt-right">
-                  <div class="project-placeholder look-night"><span>image placeholder</span></div>
-                </article>
-                <article class="work-card is-featured tilt-right">
-                  <div class="project-placeholder look-mint"><span>image placeholder</span></div>
-                </article>
-                <article class="work-card support-two tilt-left">
-                  <div class="project-placeholder look-indigo"><span>image placeholder</span></div>
-                </article>
-              </div>
-            </section>
+                  <!-- Campaign 2: Damanna's BC Charmuri -->
+                  <article class="cinema-card cinema-card-charmuri" data-index="1" 
+                    data-title="Damanna's BC Charmuri"
+                    data-badge="Food Delivery · Performance Ad"
+                    data-tags="Food Advertising, Swiggy / Zomato, Explosive Motion"
+                    data-desc="High-conversion digital ad campaign for Mangaluru's iconic street charmuri, featuring dynamic mid-air ingredient bursts, appetizing chili dust textures, and razor-sharp brand typography."
+                    data-img="Images/image 2.png"
+                    style="--card-tint: #8c2429;">
+                    <span class="cinema-tape" aria-hidden="true"></span>
+                    <span class="cinema-card-index" aria-hidden="true">02</span>
+                    <div class="cinema-media">
+                      <img src="Images/image 2.png" alt="Damanna's BC Charmuri delivery campaign" loading="lazy" decoding="async" />
+                      <span class="cinema-media-badge">Delivery Campaign</span>
+                      <div class="cinema-media-zoom" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                        <span>Click to view large</span>
+                      </div>
+                    </div>
+                    <div class="cinema-meta">
+                      <div class="cinema-tag-row">
+                        <span class="cinema-tag">Food Advertising</span>
+                        <span class="cinema-tag">Swiggy / Zomato</span>
+                        <span class="cinema-tag">Explosive Motion</span>
+                      </div>
+                      <h4 class="cinema-title">Damanna's BC Charmuri</h4>
+                      <p class="cinema-desc">Dynamic street-food delivery campaign highlighting spicy puffed-rice crunch, tossed masalas, and high-conversion food app ordering.</p>
+                      <span class="cinema-view-cue">Click to view full image ↗</span>
+                    </div>
+                  </article>
 
-            <section class="work-category category-reverse layout-mirror">
-              <header class="category-heading"><span>04</span><h3>Brand Systems</h3></header>
-              <div class="category-projects">
-                <article class="work-card support-one tilt-right">
-                  <div class="project-placeholder look-paper"><span>image placeholder</span></div>
-                </article>
-                <article class="work-card is-featured tilt-left">
-                  <div class="project-placeholder look-blue"><span>image placeholder</span></div>
-                </article>
-                <article class="work-card support-two tilt-left">
-                  <div class="project-placeholder look-sun"><span>image placeholder</span></div>
-                </article>
-                <article class="work-card support-three tilt-right">
-                  <div class="project-placeholder look-night"><span>image placeholder</span></div>
-                </article>
-              </div>
-            </section>
+                  <!-- Campaign 3: Damanna's OOH Billboard -->
+                  <article class="cinema-card cinema-card-billboard" data-index="2" 
+                    data-title="Damanna's OOH Billboard"
+                    data-badge="Outdoor Advertising · OOH"
+                    data-tags="Billboard Mockup, Street Presence, Mangaluru"
+                    data-desc="Large-scale city junction billboard campaign designed for instant roadside recall, bold typography, and mouthwatering appetite appeal in high-traffic commercial zones."
+                    data-img="Images/image 3.png"
+                    style="--card-tint: #2563eb;">
+                    <span class="cinema-tape" aria-hidden="true"></span>
+                    <span class="cinema-card-index" aria-hidden="true">03</span>
+                    <div class="cinema-media">
+                      <img src="Images/image 3.png" alt="Damanna's BC Charmuri city junction billboard campaign" loading="lazy" decoding="async" />
+                      <span class="cinema-media-badge">OOH Billboard</span>
+                      <div class="cinema-media-zoom" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                        <span>Click to view large</span>
+                      </div>
+                    </div>
+                    <div class="cinema-meta">
+                      <div class="cinema-tag-row">
+                        <span class="cinema-tag">Billboard Mockup</span>
+                        <span class="cinema-tag">Street Presence</span>
+                        <span class="cinema-tag">Mangaluru City</span>
+                      </div>
+                      <h4 class="cinema-title">Damanna's OOH Billboard</h4>
+                      <p class="cinema-desc">Large-scale roadside billboard mockup capturing highway-speed readability and towering street-level appetizing impact.</p>
+                      <span class="cinema-view-cue">Click to view full image ↗</span>
+                    </div>
+                  </article>
 
-            <section class="work-category layout-final">
-              <header class="category-heading"><span>05</span><h3>Experimental Concepts</h3></header>
-              <div class="category-projects">
-                <article class="work-card support-one tilt-left">
-                  <div class="project-placeholder look-pink"><span>image placeholder</span></div>
-                </article>
-                <article class="work-card support-two tilt-right">
-                  <div class="project-placeholder look-orbit"><span>image placeholder</span></div>
-                </article>
-                <article class="work-card support-three tilt-right">
-                  <div class="project-placeholder look-paper"><span>image placeholder</span></div>
-                </article>
-                <article class="work-card is-featured tilt-left">
-                  <div class="project-placeholder look-coral"><span>image placeholder</span></div>
-                </article>
+                  <!-- Campaign 4: Narial Anna Coconut Water -->
+                  <article class="cinema-card cinema-card-narial" data-index="3" 
+                    data-title="Narial Anna Coconut Water"
+                    data-badge="Beverage Drop · 3D Splash"
+                    data-tags="Can Design, Hydro Splash, Tropical Packaging"
+                    data-desc="Pure 100% natural tender coconut water can design immersed in dynamic splashing water droplets, sunlit palm canopies, and vibrant tropical freshness."
+                    data-img="Images/image 4.png"
+                    style="--card-tint: #0284c7;">
+                    <span class="cinema-tape" aria-hidden="true"></span>
+                    <span class="cinema-card-index" aria-hidden="true">04</span>
+                    <div class="cinema-media">
+                      <img src="Images/image 4.png" alt="Narial Anna Pure Coconut Water can splash campaign" loading="lazy" decoding="async" />
+                      <span class="cinema-media-badge">Beverage Drop</span>
+                      <div class="cinema-media-zoom" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                        <span>Click to view large</span>
+                      </div>
+                    </div>
+                    <div class="cinema-meta">
+                      <div class="cinema-tag-row">
+                        <span class="cinema-tag">Can Design</span>
+                        <span class="cinema-tag">Hydro Splash</span>
+                        <span class="cinema-tag">Tropical Packaging</span>
+                      </div>
+                      <h4 class="cinema-title">Narial Anna Coconut Water</h4>
+                      <p class="cinema-desc">Pure 100% natural coconut water in a sleek slim can, framed by crisp water splashes and sun-drenched coastal palm light.</p>
+                      <span class="cinema-view-cue">Click to view full image ↗</span>
+                    </div>
+                  </article>
+
+                </div>
               </div>
-            </section>
+
+              <!-- Bottom transition banner -->
+              <div class="reel-bottom-bar" aria-hidden="true">
+                <span class="reel-status-text">Keep scrolling into Motion &amp; Videos ↓</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
+      <!-- Section 02: Motion & Video Design (Light Paper Storyboard Canvas) -->
+      <section class="video-section" id="videos" aria-labelledby="video-title">
+        <div class="video-section-inner">
+          <header class="video-heading">
+            <span class="video-kicker">✦ Series 02 · Motion Lab</span>
+            <h2 id="video-title">Motion &amp; Videos</h2>
+            <p class="video-subtitle">Storyboards, commercial spots &amp; kinetic typography that jump off the screen.</p>
+            <div class="video-heading-note" aria-hidden="true">
+              <span class="video-heading-doodle-text">grab popcorn &amp; press play</span>
+              <svg class="video-doodle-arrow" viewBox="0 0 100 45" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 12 C 45 4, 75 14, 84 32" />
+                <path d="M72 32 L 84 32 L 84 20" />
+              </svg>
+            </div>
+          </header>
+
+          <div class="video-deck">
+            <!-- Video 1: Intro Video -->
+            <article class="video-card video-card-featured" 
+              data-video-title="Intro Video" 
+              data-video-desc="High-tempo animated intro sequence featuring custom 2D rigging, precision beat-synced motion graphics, and kinetic typography." 
+              data-video-meta="Intro Sequence" 
+              data-video-tools="Adobe Illustrator · After Effects">
+              <span class="video-tape video-tape-coral" aria-hidden="true"></span>
+              <span class="video-tape video-tape-corner" aria-hidden="true"></span>
+              
+              <div class="video-screen video-screen-live" id="neon-rain-screen">
+                <video class="video-player-inline" id="neon-rain-video"
+                  src="Videos/Video 1.mp4" 
+                  width="1080" 
+                  height="1920"
+                  autoplay 
+                  loop 
+                  muted 
+                  playsinline 
+                  preload="auto">
+                </video>
+
+                <!-- Floating Mute/Unmute Button on Top (hover to interact) -->
+                <button class="video-inline-mute-btn is-muted" id="neon-rain-mute-btn" type="button" aria-label="Unmute video audio">
+                  <span class="mute-btn-icon" aria-hidden="true">
+                    <svg class="icon-sound-off" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <line x1="23" y1="9" x2="17" y2="15"></line>
+                      <line x1="17" y1="9" x2="23" y2="15"></line>
+                    </svg>
+                    <svg class="icon-sound-on" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                  </span>
+                  <span class="mute-btn-label">Unmute</span>
+                </button>
+
+                <div class="video-scanlines" aria-hidden="true"></div>
+              </div>
+              <div class="video-meta">
+                <div class="video-tags">
+                  <span>2D Rigging</span>
+                  <span>Beat Sync</span>
+                  <span>Kinetic Text</span>
+                </div>
+                <h3 class="video-card-title">Intro Video</h3>
+                <p class="video-card-desc">High-tempo animated intro sequence featuring custom 2D rigging, precision beat-synced motion graphics, and kinetic typography.</p>
+                <div class="video-tools-row">
+                  <small>Craft: Adobe Illustrator · After Effects</small>
+                </div>
+              </div>
+            </article>
+
+            <!-- Video 2: SaaS Product Intro — plays inline + opens clean modal player -->
+            <article class="video-card video-card-inline"
+              data-video-title="SaaS Product Intro" 
+              data-video-desc="High-energy SaaS video of a digital product showcasing core workflows with synchronized kinetic typography and smooth interface motion." 
+              data-video-meta="SaaS Digital Product" 
+              data-video-tools="After Effects"
+              data-video-src="Videos/Video 2.mp4">
+              <span class="video-tape video-tape-yellow" aria-hidden="true"></span>
+              
+              <div class="video-screen video-screen-live" id="velocity-screen">
+                <video class="video-player-inline" id="velocity-video"
+                  src="Videos/Video 2.mp4"
+                  autoplay
+                  loop
+                  muted
+                  playsinline
+                  preload="auto">
+                </video>
+
+                <button class="video-inline-mute-btn is-muted" id="velocity-mute-btn" type="button" aria-label="Unmute SaaS video">
+                  <span class="mute-btn-icon" aria-hidden="true">
+                    <svg class="icon-sound-off" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <line x1="23" y1="9" x2="17" y2="15"></line>
+                      <line x1="17" y1="9" x2="23" y2="15"></line>
+                    </svg>
+                    <svg class="icon-sound-on" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                  </span>
+                  <span class="mute-btn-label">Unmute</span>
+                </button>
+
+                <div class="video-scanlines" aria-hidden="true"></div>
+
+                <!-- Click overlay to open modal player -->
+                <button class="video-open-player-btn" type="button" aria-label="Open SaaS video in player">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                  <span>Play</span>
+                </button>
+              </div>
+
+              <div class="video-meta">
+                <div class="video-tags">
+                  <span>Kinetic Typography</span>
+                  <span>SaaS</span>
+                </div>
+                <h3 class="video-card-title">SaaS Product Intro</h3>
+                <p class="video-card-desc">High-energy SaaS video of a digital product showcasing core workflows with synchronized kinetic typography and smooth interface motion.</p>
+                <div class="video-tools-row">
+                  <small>Craft: After Effects</small>
+                </div>
+              </div>
+            </article>
+
+            <!-- Video 3: OREO AI Commercial Spec — plays inline + opens clean modal player -->
+            <article class="video-card video-card-inline"
+              data-video-title="OREO — AI Commercial Spec" 
+              data-video-desc="Generative AI video sample and speculative commercial exploring prompt-driven cinematic pipelines, surreal physics, and brand storytelling." 
+              data-video-meta="AI Video Sample" 
+              data-video-tools="Generative AI · Premiere Pro · After Effects"
+              data-video-src="Videos/video 3.mp4">
+              <span class="video-tape video-tape-teal" aria-hidden="true"></span>
+              
+              <div class="video-screen video-screen-live" id="solaris-screen">
+                <video class="video-player-inline" id="solaris-video"
+                  src="Videos/video 3.mp4"
+                  autoplay
+                  loop
+                  muted
+                  playsinline
+                  preload="auto">
+                </video>
+
+                <button class="video-inline-mute-btn is-muted" id="solaris-mute-btn" type="button" aria-label="Unmute OREO AI video">
+                  <span class="mute-btn-icon" aria-hidden="true">
+                    <svg class="icon-sound-off" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <line x1="23" y1="9" x2="17" y2="15"></line>
+                      <line x1="17" y1="9" x2="23" y2="15"></line>
+                    </svg>
+                    <svg class="icon-sound-on" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                  </span>
+                  <span class="mute-btn-label">Unmute</span>
+                </button>
+
+                <div class="video-scanlines" aria-hidden="true"></div>
+
+                <!-- Click overlay to open modal player -->
+                <button class="video-open-player-btn" type="button" aria-label="Open OREO video in player">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                  <span>Play</span>
+                </button>
+              </div>
+
+              <div class="video-meta">
+                <div class="video-tags">
+                  <span>AI Video</span>
+                  <span>Spec Commercial</span>
+                </div>
+                <h3 class="video-card-title">OREO — AI Commercial Spec</h3>
+                <p class="video-card-desc">Generative AI video sample and speculative commercial exploring prompt-driven cinematic pipelines, surreal physics, and brand storytelling.</p>
+                <div class="video-tools-row">
+                  <small>Craft: Generative AI · Premiere Pro · After Effects</small>
+                </div>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Section 03: Experimental & Internal Software -->
+      <section class="experimental-section" id="experimental" aria-labelledby="experimental-title">
+        <div class="experimental-inner">
+          <header class="experimental-heading">
+            <span class="experimental-kicker">✦ Series 03 · Internal Lab</span>
+            <h2 id="experimental-title">Experimental</h2>
+            <p class="experimental-subtitle">Not client design. Just software, internal tools &amp; automation scripts I built to make my work simple.</p>
+          </header>
+
+          <div class="experimental-grid">
+            <!-- Tool 1: Featured Designer Management OS: Design Orbit -->
+            <article class="experimental-card exp-card-featured" 
+              data-exp-title="Design Orbit — Design Ops & Team OS"
+              data-exp-tag="Internal Software · Production Suite">
+              <span class="exp-tape exp-tape-blue" aria-hidden="true"></span>
+              <span class="exp-stamp" aria-hidden="true">ACTIVE STUDIO OS</span>
+
+              <div class="exp-card-header">
+                <div class="exp-card-badge-row">
+                  <span class="exp-badge">Featured Internal Software</span>
+                </div>
+              </div>
+
+              <div class="exp-content">
+                <h3 class="exp-title">Design Orbit — Centralized Design Ops &amp; Team Management</h3>
+                <p class="exp-desc">
+                  A centralized operations &amp; team management platform engineered to track client deliverables, monitor time allocation, and maximize creative team output.
+                </p>
+
+                <!-- High-Impact Trust Signals (Elevated & Positioned Prominently) -->
+                <div class="exp-trust-grid">
+                  <div class="exp-trust-card">
+                    <div class="trust-stat-head">
+                      <span class="trust-stat-num">−40%</span>
+                      <span class="trust-stat-pill pill-efficiency">Efficiency</span>
+                    </div>
+                    <strong class="trust-stat-title">Planning Overhead</strong>
+                    <p class="trust-stat-sub">Replaced spreadsheet chaos &amp; fragmented chat loops with automated deliverable queues.</p>
+                  </div>
+
+                  <div class="exp-trust-card">
+                    <div class="trust-stat-head">
+                      <span class="trust-stat-num">98%</span>
+                      <span class="trust-stat-pill pill-milestones">Milestones</span>
+                    </div>
+                    <strong class="trust-stat-title">On-Time Delivery</strong>
+                    <p class="trust-stat-sub">Predictable sprint throughput across 40+ active brand accounts with proactive bottleneck alerts.</p>
+                  </div>
+
+                  <div class="exp-trust-card">
+                    <div class="trust-stat-head">
+                      <span class="trust-stat-num">100%</span>
+                      <span class="trust-stat-pill pill-budget">Transparency</span>
+                    </div>
+                    <strong class="trust-stat-title">Budget Visibility</strong>
+                    <p class="trust-stat-sub">Live retainer burn-rate auditing, billable time ledger, and commercial account health.</p>
+                  </div>
+                </div>
+
+                <!-- Live System Preview Box with Real Screenshot -->
+                <div class="exp-preview-showcase">
+                  <a href="design-orbit.html" class="exp-preview-browser" title="View Full Design Orbit Showcase & Product Architecture">
+                    <div class="exp-preview-chrome">
+                      <div class="exp-preview-dots">
+                        <span></span><span></span><span></span>
+                      </div>
+                      <span class="exp-preview-url">https://design-orbit-sigma.vercel.app/dashboard</span>
+                      <span class="exp-preview-badge">● Real Production Screenshot</span>
+                    </div>
+                    <div class="exp-preview-media">
+                      <img 
+                        src="assets/design-orbit/dashboard-executive.png" 
+                        alt="Design Orbit — Real Executive Dashboard Product Screenshot" 
+                        class="exp-preview-img"
+                        loading="lazy"
+                      />
+                      <div class="exp-preview-glare" aria-hidden="true"></div>
+                      <div class="exp-preview-overlay">
+                        <span class="exp-preview-cta">Inspect 3 Key System Interfaces &amp; Architecture ↗</span>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="exp-action-row">
+                  <a href="design-orbit.html" class="exp-action-btn" id="btn-design-orbit">
+                    <span>View Design Orbit Program &amp; UI Showcase</span>
+                    <span class="exp-action-arrow">↗</span>
+                  </a>
+                  <span class="exp-action-hint">click to inspect architecture, screens &amp; analytics ✎</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 1 (50%): Luna — Desktop Hydration Companion -->
+            <article class="experimental-card exp-card-half"
+              data-exp-title="Luna — The Desktop Hydration Companion">
+              <span class="exp-tape exp-tape-yellow" aria-hidden="true"></span>
+
+
+              <div class="exp-card-header">
+                <div class="exp-card-badge-row">
+                  <span class="exp-badge">macOS &amp; Windows</span>
+                  <span class="exp-badge">Desktop Companion</span>
+                </div>
+              </div>
+
+              <div class="exp-content">
+                <h3 class="exp-title">Luna — Desktop Hydration Companion</h3>
+                <p class="exp-desc">
+                  Working long hours often means forgetting to drink water. Sterile system popups get swiped away, so I built Luna—a lightweight, cross-platform desktop pet that roams across multiple monitors and physically sprints to the center of your screen when it’s time to hydrate. Featuring per-pixel click-through transparency, procedural vector animations, and zero telemetry.
+                </p>
+                <div class="exp-blueprint-panel exp-blueprint-compact">
+                  <div class="blueprint-row">
+                    <span class="blueprint-label">Key Highlights:</span>
+                    <span class="blueprint-val">Multi-Monitor Navigation · Per-Pixel Click-Through · Procedural SVG Animation · 100% Offline &amp; Silent</span>
+                  </div>
+                  <div class="blueprint-tags">
+                    <span class="b-tag">Swift 5.9</span>
+                    <span class="b-tag">SpriteKit</span>
+                    <span class="b-tag">Electron</span>
+                    <span class="b-tag">Canvas 2D</span>
+                    <span class="b-tag">AppKit</span>
+                  </div>
+                </div>
+
+                <div class="exp-action-row exp-action-compact">
+                  <a href="luna.html" class="exp-action-btn exp-luna-action-btn" id="btn-luna-case-study">
+                    <span>View Luna Architecture &amp; Interactive Lab</span>
+                    <span class="exp-action-arrow">↗</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 2 (50%): Coming Soon -->
+            <article class="experimental-card exp-card-half exp-card-coming-soon"
+              data-exp-title="Next Experiment — Coming Soon">
+              <span class="exp-tape exp-tape-coral" aria-hidden="true"></span>
+
+              <div class="coming-soon-inner">
+                <span class="coming-soon-kicker">"under trial &amp; error"</span>
+                <h3 class="coming-soon-heading">Coming Soon.</h3>
+                <p class="coming-soon-desc">Next studio software is currently undergoing trial &amp; error. Will be launched soon.</p>
+                <div class="coming-soon-pill">
+                  <span class="pill-dot">●</span>
+                  <span>In Development</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 04: About & Closing Sketchbook -->
       <section class="about-section" id="about" aria-labelledby="about-title">
         <div class="about-book">
           <span class="book-spine" aria-hidden="true"></span>
@@ -360,92 +760,118 @@
               <img src="doodles/Untitled-3-01.webp" alt="Varun Shetty" />
             </figure>
             <p class="about-signature">Varun Shetty</p>
-            <p class="about-role">Visual Designer · Storyteller · AI Creative</p>
+            <p class="about-role">Designer · Technologist · Visual Storyteller</p>
             <div class="about-location">
-              <span>Current Obsessions</span>
+              <span>What I do</span>
               <div class="obsession-tags">
-                <small>AI Workflows</small>
-                <small>Motion Posters</small>
-                <small>Creative Websites</small>
+                <small>AI Creative Direction</small>
+                <small>Motion Design</small>
+                <small>Brand Systems</small>
+                <small>Dev Tools</small>
               </div>
             </div>
-            <aside class="about-personal-note" aria-label="Beyond the pixels">
-              <span>Beyond the pixels</span>
+            <aside class="about-personal-note" aria-label="Off the clock">
+              <span>Off the clock</span>
               <p>
-                When I’m not designing, I’m usually collecting references, exploring new tools,
-                listening to music, or turning random thoughts into little experiments.
+                You'll find me reverse-engineering film frames, obsessing over font kerning,
+                or building tiny scripts that no one asked for but everyone ends up needing.
               </p>
               <div class="personal-interest-tags" aria-label="Personal interests">
-                <small>Music</small>
-                <small>Films</small>
-                <small>Tech</small>
-                <small>Internet rabbit holes</small>
+                <small>Cinema</small>
+                <small>Sound Design</small>
+                <small>Architecture</small>
+                <small>Automation</small>
               </div>
             </aside>
             <span class="about-scribble" aria-hidden="true">✦</span>
           </article>
 
           <article class="about-page about-story-page">
-            <p class="about-kicker">about me</p>
-            <h2 id="about-title">A little about<br /><em>the person behind the work.</em></h2>
+            <p class="about-kicker">who I am</p>
+            <h2 id="about-title">Design that earns<br /><em>a second look.</em></h2>
             <p class="about-intro">
-              I’m fascinated by how visuals influence the way people think, feel, and interact.
-              That’s what keeps me designing.
+              I sit at the edge of visual craft, generative AI, and engineering — where most
+              people pick one lane. I don't. Every project I touch gets obsessive art direction,
+              technology that actually works, and a story people remember.
             </p>
 
             <div class="about-details">
               <div class="about-detail">
-                <span>Things I naturally gravitate toward</span>
+                <span>Things I care about</span>
                 <ul>
-                  <li>Bold typography</li>
-                  <li>Motion that feels alive</li>
-                  <li>Editorial layouts</li>
-                  <li>Clever interactions</li>
-                  <li>AI-assisted creativity</li>
-                  <li>Tiny details people notice later</li>
+                  <li>Type that has weight, not just size</li>
+                  <li>Motion that feels inevitable, not decorative</li>
+                  <li>AI as a thinking tool — never a shortcut</li>
+                  <li>Software that removes friction for creatives</li>
+                  <li>Details that only reveal themselves on the third look</li>
                 </ul>
               </div>
               <div class="about-detail">
-                <span>What you’ll get working with me</span>
+                <span>How I actually work</span>
                 <ul>
-                  <li>Thoughtful communication</li>
-                  <li>Fast iteration</li>
-                  <li>Honest feedback</li>
-                  <li>Pixel-level attention</li>
-                  <li>Curiosity over ego</li>
-                  <li>Reliable delivery</li>
+                  <li>Direct feedback, no sugarcoating</li>
+                  <li>Prototype first, refine relentlessly</li>
+                  <li>Curiosity over ego, always</li>
+                  <li>Deadlines are a design constraint, not a threat</li>
+                  <li>I own the work from concept to final delivery</li>
                 </ul>
               </div>
             </div>
 
-            <p class="about-note">Every project teaches me something. That’s why I keep making.</p>
+            <p class="about-note">Taste gets you in the room. Systems keep you there.</p>
 
             <div class="about-connect about-status">
-              <small>current availability</small>
-              <strong>Open for select freelance projects and creative collaborations.</strong>
+              <small>open for work</small>
+              <strong>Taking on brand campaigns, motion work &amp; creative tooling for 2026.</strong>
             </div>
           </article>
         </div>
 
-        <footer class="closing-footer">
+        <footer class="closing-footer" id="contact">
           <img class="closing-doodle closing-juice" src="doodles/file-04.svg" alt="" aria-hidden="true" />
           <img class="closing-doodle closing-ramen" src="doodles/file-05.svg" alt="" aria-hidden="true" />
           <img class="closing-doodle closing-dragon" src="doodles/file-01.svg" alt="" aria-hidden="true" />
 
           <div class="closing-message">
-            <p>got something in mind?</p>
-            <h2>Let’s make something<br /><em>people remember.</em></h2>
-            <span>Freelance projects, collaborations and unusual ideas are always welcome.</span>
+            <div class="closing-kicker-row">
+              <p>have an ambitious brief in mind?</p>
+            </div>
+            <h2>Let’s make something<br /><em>people actually remember.</em></h2>
+            <span class="closing-subtext">
+              Whether you need a full visual universe, a high-tempo 3D motion sequence, 
+              or custom software to tame creative chaos—my inbox is always open for ambitious teams.
+            </span>
+
+            <div class="closing-direct-contact">
+              <a class="closing-email-btn" href="mailto:sinferous32@gmail.com" aria-label="Send email to Varun Shetty">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                <span>sinferous32@gmail.com</span>
+                <span class="email-copy-badge">Shoot email ➔</span>
+              </a>
+            </div>
+
             <nav class="closing-socials" aria-label="Connect with Varun">
-              <a href="https://www.linkedin.com/in/varun-shetty-b71a1b197" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-              <a href="https://www.instagram.com/varun.shettyyyy/" target="_blank" rel="noopener noreferrer">Instagram</a>
-              <a href="https://wa.me/919611067617" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+              <a href="https://www.linkedin.com/in/varun-shetty-b71a1b197" target="_blank" rel="noopener noreferrer">
+                <span>LinkedIn ↗</span>
+              </a>
+              <a href="https://www.instagram.com/varun.shettyyyy/" target="_blank" rel="noopener noreferrer">
+                <span>Instagram ↗</span>
+              </a>
+              <a href="https://wa.me/919611067617" target="_blank" rel="noopener noreferrer">
+                <span>WhatsApp ↗</span>
+              </a>
             </nav>
+
+            <div class="closing-quick-pills">
+              <span>📍 India (GMT +5:30)</span>
+              <span>⚡ Fast Turnarounds</span>
+              <span>🎯 Strategy + Craft</span>
+            </div>
           </div>
 
           <div class="closing-meta">
-            <span>Varun Shetty · 2026</span>
-            <span>Designed with curiosity &amp; a little chaos.</span>
+            <span>Varun Shetty · Portfolio &copy; 2026</span>
+            <span>Designed with curiosity, craft &amp; a little chaos.</span>
           </div>
         </footer>
       </section>
@@ -499,6 +925,210 @@
       </div>
     </section>
 
+    <!-- Creative Campaign Lightbox Modal -->
+    <div class="creative-modal" id="creative-modal" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1">
+      <div class="creative-modal-overlay"></div>
+      
+      <div class="creative-modal-shell">
+        <!-- Clean Lightbox Topbar -->
+        <header class="creative-modal-topbar">
+          <div class="creative-modal-top-left">
+            <span class="creative-modal-counter"><b id="creative-modal-idx">01</b> / 04</span>
+            <span class="creative-modal-sep" aria-hidden="true">·</span>
+            <span class="creative-modal-badge">Brand Campaign</span>
+          </div>
+          <button class="creative-modal-close" type="button" aria-label="Close modal">
+            <span class="close-txt">Close</span>
+            <span class="close-icon">✕</span>
+            <span class="close-esc-badge" aria-hidden="true">esc</span>
+          </button>
+        </header>
+
+        <!-- Main Artwork Stage with Clean Nav Chevrons -->
+        <div class="creative-modal-viewer">
+          <button class="creative-nav-btn creative-nav-prev" type="button" aria-label="Previous image">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          
+          <div class="creative-modal-image-stage">
+            <img class="creative-modal-img" src="" alt="" />
+          </div>
+          
+          <button class="creative-nav-btn creative-nav-next" type="button" aria-label="Next image">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Clean, focused caption row -->
+        <footer class="creative-modal-caption">
+          <div class="creative-caption-main">
+            <h3 class="creative-modal-title"></h3>
+            <p class="creative-modal-desc"></p>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Motion & Video Preview Modal (Taped Storyboard Monitor / CRT Player) -->
+    <div class="video-modal" id="video-modal" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1">
+      <div class="video-modal-overlay"></div>
+      
+      <div class="video-modal-shell">
+        <!-- Duct / Masking Tapes sticking the monitor down -->
+        <span class="modal-washi-tape video-tape-top-left" aria-hidden="true"></span>
+        <span class="modal-washi-tape video-tape-top-right" aria-hidden="true"></span>
+        <span class="modal-washi-tape video-tape-side-left" aria-hidden="true"></span>
+
+        <!-- Director Clapperboard Header Strip -->
+        <div class="clapper-header-bar">
+          <div class="clapper-stripes" aria-hidden="true"></div>
+          <div class="clapper-meta-info">
+            <span class="clapper-label">PROD: MOTION LAB</span>
+            <span class="clapper-sep">|</span>
+            <span class="clapper-label">ROLL: 35MM CINEMA</span>
+            <span class="clapper-sep">|</span>
+            <span class="clapper-handnote">"crank up the audio 🔊"</span>
+          </div>
+          <button class="video-modal-close" type="button" aria-label="Close video">
+            <span class="close-txt">Close</span>
+            <span class="close-icon">✕</span>
+          </button>
+        </div>
+
+        <!-- Retro CRT / Monitor Screen -->
+        <div class="video-modal-player-wrap">
+          <div class="monitor-screw screw-tl" aria-hidden="true"></div>
+          <div class="monitor-screw screw-tr" aria-hidden="true"></div>
+          <div class="monitor-screw screw-bl" aria-hidden="true"></div>
+          <div class="monitor-screw screw-br" aria-hidden="true"></div>
+
+          <div class="video-modal-placeholder-player">
+            <!-- CRT Scanlines and Glass Reflections -->
+            <div class="video-crt-scanlines" aria-hidden="true"></div>
+            <div class="video-crt-vignette" aria-hidden="true"></div>
+
+            <div class="video-player-graphic">
+              <!-- Top HUD -->
+              <div class="player-hud-top">
+                <span class="rec-status-badge"><span class="rec-dot">●</span> REC 00:00:24:18</span>
+                <span class="audio-hud-rate">AUDIO: 48kHz STEREO</span>
+                <span class="fps-hud-rate">60 FPS MASTER</span>
+              </div>
+
+              <!-- Retro Tape Reel Graphic -->
+              <div class="player-reel-graphic" aria-hidden="true">
+                <div class="reel-circle reel-left">
+                  <div class="reel-inner-spokes"></div>
+                </div>
+                <div class="tape-strip-connector"></div>
+                <div class="reel-circle reel-right">
+                  <div class="reel-inner-spokes"></div>
+                </div>
+              </div>
+
+              <p class="video-modal-player-title"></p>
+              <small class="video-modal-player-meta"></small>
+
+              <!-- Equalizer Soundwave -->
+              <div class="video-player-soundwave" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+              </div>
+
+              <!-- Hand-drawn Player Note -->
+              <p class="player-hand-doodle-note">
+                <span>✦ rendered overnight on a sizzling GPU 💻🔥</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Modal Footer -->
+        <footer class="video-modal-footer">
+          <div class="video-modal-footer-main">
+            <div class="video-footer-kicker">
+              <span class="video-kicker-doodle">Storyboard &amp; Cut 🎬</span>
+            </div>
+            <h4 class="video-modal-title"></h4>
+            <p class="video-modal-desc"></p>
+          </div>
+          <div class="video-modal-footer-aside">
+            <div class="video-craft-box">
+              <small>Motion Craft &amp; Software</small>
+              <div class="video-craft-labels" id="video-modal-craft-chips">
+                <span class="craft-label-chip chip-rot-1">After Effects</span>
+                <span class="craft-label-chip chip-rot-2">Blender 3D</span>
+                <span class="craft-label-chip chip-rot-3">Cinema 4D</span>
+                <span class="craft-label-chip chip-rot-1">DaVinci Color</span>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Clean Video Player Modal — for Card 2 / 3 click-to-expand -->
+    <div class="vp-modal" id="vp-modal" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1">
+      <div class="vp-overlay" id="vp-overlay"></div>
+      <div class="vp-shell">
+        <!-- Top bar -->
+        <div class="vp-topbar">
+          <div class="vp-topbar-left">
+            <span class="vp-title-label" id="vp-title-label">VELOCITY — Brand Anthem</span>
+          </div>
+          <button class="vp-close-btn" id="vp-close-btn" type="button" aria-label="Close player">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span>Close</span>
+          </button>
+        </div>
+
+        <!-- Video stage -->
+        <div class="vp-stage">
+          <video class="vp-video" id="vp-video" preload="auto" loop playsinline></video>
+          <!-- Play/Pause big overlay tap target -->
+          <div class="vp-tap-area" id="vp-tap-area" aria-hidden="true"></div>
+        </div>
+
+        <!-- Controls bar -->
+        <div class="vp-controls">
+          <!-- Play / Pause -->
+          <button class="vp-btn vp-play-pause" id="vp-play-pause" type="button" aria-label="Play">
+            <svg class="vp-icon-play" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+            <svg class="vp-icon-pause" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          </button>
+
+          <!-- Time display -->
+          <span class="vp-time" id="vp-time"><span class="vp-current">0:00</span> / <span class="vp-duration">0:00</span></span>
+
+          <!-- Seek bar -->
+          <div class="vp-seek-wrap">
+            <input class="vp-seek" id="vp-seek" type="range" min="0" max="100" value="0" step="0.1" aria-label="Seek">
+            <div class="vp-seek-filled" id="vp-seek-filled"></div>
+          </div>
+
+          <!-- Volume -->
+          <button class="vp-btn vp-mute-btn" id="vp-mute-btn" type="button" aria-label="Mute">
+            <svg class="vp-vol-on" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+            <svg class="vp-vol-off" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>
+            </svg>
+          </button>
+          <div class="vp-vol-wrap">
+            <input class="vp-vol" id="vp-vol" type="range" min="0" max="1" value="1" step="0.02" aria-label="Volume">
+            <div class="vp-vol-filled" id="vp-vol-filled"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="script.js"></script>
+
   </body>
 </html>
