@@ -18,15 +18,15 @@ The portfolio marries **tactile sketchbook / physical collage aesthetics** (hand
 - **Dynamic Theme Architecture**: Configured multi-stage theme classes (`theme-paper`, `theme-espresso`, default dark charcoal `#222222`) that smoothly adapt background colors based on the active scroll section.
 
 ### 2. Section 01: Things I’ve Made (Cinematic Horizontal Reel)
-- **Pinned Reel Architecture**: Built a vertical-to-horizontal scroll runway (`.work-reel-pin` & `.work-reel-sticky`) showcasing 4 featured campaigns:
-  1. **NIMBU** — Sparkling Citrus (Beverage packaging & AI art direction)
-  2. **MITTI No. 07** — Luxury Editorial Perfume
-  3. **RAGA** — Acoustic Concept (Melodic heritage x modern industrial tech)
-  4. **MONSOON CLUB** — Weatherproof Footwear & Streetwear Drop
+- **Pinned Reel Architecture**: Built a vertical-to-horizontal scroll runway (`.work-reel-pin` & `.work-reel-sticky`) showcasing 4 featured static works:
+  1. **Social Media Ad Static** — Naran's Benne Butten (Tactile packaging art direction & morning chai staging)
+  2. **OOH Banner Design** — Damanna's BC Charmuri (High-impact street food banner graphic)
+  3. **Mockups** — Damanna's OOH Billboard (Large-scale roadside urban architectural mockup)
+  4. **Commercial Product Statics** — Narial Anna Coconut Water (3D hydro splash & commercial can design)
 - **Floating HUD Bar (`.reel-hud`)**:
   - Live progress track bar with coral gradient fill.
   - Dynamic index counter (`01 / 04` through `04 / 04`).
-  - Tactile typography and series kicker (`✦ Series 01 · AI Visual Campaigns`).
+  - Tactile typography and series kicker (`✦ Series 01 · Static Creatives`).
 - **Sticky Pinning & Runway Fix (Latest Fix)**:
   - Extended the pinning runway from `380vh` to `500vh`.
   - Added an 82% glide mapping with a generous ~18% dwell buffer in `script.js` so that **Card 04 and the HUD bar remain rock-solid on the frame** instead of prematurely unpinning and shooting off-screen when scrolling through cards 03 and 04.
