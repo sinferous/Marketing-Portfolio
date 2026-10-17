@@ -1,0 +1,4 @@
+# Local preview server only; Vercel serves the static files directly
+server.js
+node_modules
+Videos/*_orig_backup.mp4
