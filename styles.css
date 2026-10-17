@@ -5737,3 +5737,238 @@ body.game-is-open .cursor-trail-canvas { opacity: 0; }
     display: none;
   }
 }
+
+/* ==========================================================================
+   Section 03: Services, Packages & Process (social media management)
+   Reuses the experimental card system; only layout extras live here.
+   ========================================================================== */
+.services-section {
+  position: relative;
+  width: 100%;
+  padding: 130px 32px 0;
+  background-color: transparent;
+  box-sizing: border-box;
+}
+
+.services-kicker {
+  color: var(--coral);
+}
+
+.services-results {
+  margin: 0 0 56px;
+}
+
+.services-packages {
+  align-items: stretch;
+}
+
+.package-card {
+  padding-top: 34px;
+}
+
+.package-card .exp-desc {
+  margin-bottom: 14px;
+}
+
+.package-popular {
+  border-color: rgba(239, 91, 69, 0.45);
+  box-shadow: 0 20px 44px rgba(239, 91, 69, 0.14), 0 3px 8px rgba(70, 48, 30, 0.05);
+}
+
+.package-list {
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 9px;
+}
+
+.package-list li {
+  position: relative;
+  padding-left: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: #3f362e;
+}
+
+.package-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--coral);
+  font-family: Caveat, cursive;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.package-cta {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.services-addon-note {
+  margin: 30px 0 0;
+  text-align: center;
+  font-family: Caveat, "Segoe Print", cursive;
+  font-size: 23px;
+  font-weight: 700;
+  color: #63574c;
+}
+
+.services-addon-note a {
+  color: var(--coral);
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-underline-offset: 4px;
+}
+
+/* Process: five taped steps on a strip of graph paper */
+.process-board {
+  margin: 90px 0 0;
+  padding: 34px 34px 30px;
+  background: #fdfbf7;
+  background-image:
+    linear-gradient(rgba(170, 183, 200, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(170, 183, 200, 0.2) 1px, transparent 1px);
+  background-size: 22px 22px;
+  border: 1.5px solid rgba(135, 105, 80, 0.2);
+  border-radius: 16px 20px 15px 18px;
+  box-shadow: 0 16px 36px rgba(70, 48, 30, 0.09);
+  transform: rotate(-0.4deg);
+}
+
+.process-heading {
+  margin: 0 0 22px;
+  text-align: center;
+  font-family: Caveat, "Segoe Print", cursive;
+  font-size: 30px;
+  font-weight: 700;
+  color: #1c1916;
+}
+
+.process-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.process-step {
+  position: relative;
+  padding: 18px 16px 16px;
+  background: #ffffff;
+  border: 1.5px solid rgba(135, 105, 80, 0.18);
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(70, 48, 30, 0.05);
+}
+
+.process-step:nth-child(odd) { transform: rotate(-1deg); }
+.process-step:nth-child(even) { transform: rotate(1deg); }
+
+.process-num {
+  display: block;
+  margin-bottom: 6px;
+  font-family: "DM Serif Display", Georgia, serif;
+  font-size: 30px;
+  line-height: 1;
+  color: var(--coral);
+}
+
+.process-step strong {
+  display: block;
+  margin-bottom: 6px;
+  font-family: Poppins, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1e1b18;
+}
+
+.process-step p {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #554a40;
+}
+
+/* Landing page offer card (replaces the old "coming soon" card) */
+.landing-offer-card .package-list {
+  margin-bottom: 4px;
+}
+
+/* WhatsApp is the primary contact action */
+.closing-direct-contact {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.closing-whatsapp-btn {
+  background: rgba(37, 211, 102, 0.14);
+  border-color: rgba(37, 211, 102, 0.55);
+}
+
+.closing-whatsapp-btn .email-copy-badge {
+  background: #25d366;
+  color: #0b2e17;
+}
+
+@media (max-width: 980px) {
+  .process-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .process-step:last-child {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 680px) {
+  .services-section {
+    padding: 90px 20px 0;
+  }
+  .process-board {
+    padding: 26px 18px 22px;
+  }
+  .process-steps {
+    grid-template-columns: 1fr;
+  }
+  .process-step:last-child {
+    grid-column: auto;
+  }
+}
+
+/* Package cards: stack on tablet and phone (beats the span-4 default card rule) */
+@media (max-width: 980px) {
+  .experimental-grid.services-packages > .experimental-card.package-card:not(.exp-card-featured) {
+    grid-column: span 12;
+  }
+}
+
+/* About book: Caveat needs larger sizes and darker ink to stay readable */
+.about-book .about-role { font-size: 20px; color: #6e3d2f; }
+.about-book .about-location > span { font-size: 21px; }
+.about-book .about-location .obsession-tags small { min-height: 32px; padding: 5px 14px; font-size: 17px; color: #6e3d2f; }
+.about-book .about-personal-note > span { font-size: 22px; }
+.about-book .about-personal-note p { font-size: 18px; line-height: 1.35; color: #5b3a2f; }
+.about-book .personal-interest-tags small { padding: 5px 12px; font-size: 16px; color: #6e3d2f; }
+.about-book .about-kicker { font-size: 20px; }
+.about-book .about-intro { font-size: 21px; line-height: 1.45; color: #5b3a2f; }
+.about-book .about-detail { color: #5b3a2f; }
+.about-book .about-detail span { font-size: 21px; }
+.about-book .about-detail ul { font-size: 18.5px; line-height: 1.35; }
+.about-book .about-detail li + li { margin-top: 6px; }
+.about-book .about-note { font-size: 20px; color: #5b3a2f; }
+.about-book .about-connect small { font-size: 17px; }
+
+/* Landing page offer: a single compact card centred under the heading */
+.experimental-grid > .experimental-card.exp-card-full.landing-offer-card {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: min(620px, 100%);
+}

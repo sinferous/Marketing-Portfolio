@@ -75,18 +75,17 @@ const updateReelAndTheme = () => {
   // 1. Above video section: default charcoal (#222222)
   // 2. Video & Experimental sections active: warm sketchbook Light Paper theme (#f5eedf)
   // 3. About section active: warm espresso (#1c1815)
-  const videoSection = document.getElementById('videos');
-  const expSection = document.getElementById('experimental');
-  const videoRect = videoSection ? videoSection.getBoundingClientRect() : null;
-  const expRect = expSection ? expSection.getBoundingClientRect() : null;
+  const lightSections = ['videos', 'services', 'landing']
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
   const aboutRect = aboutSection ? aboutSection.getBoundingClientRect() : null;
   const vh = window.innerHeight;
 
   const isAboutActive = aboutRect ? aboutRect.top <= vh * 0.5 : false;
-  const isLightActive = !isAboutActive && (
-    (videoRect && videoRect.top <= vh * 0.72 && videoRect.bottom >= 0) ||
-    (expRect && expRect.top <= vh * 0.72 && expRect.bottom >= 0)
-  );
+  const isLightActive = !isAboutActive && lightSections.some((section) => {
+    const rect = section.getBoundingClientRect();
+    return rect.top <= vh * 0.72 && rect.bottom >= 0;
+  });
 
   document.body.classList.toggle('theme-espresso', isAboutActive);
   document.body.classList.toggle('theme-paper', isLightActive);
@@ -729,7 +728,7 @@ if (
 }
 
 if (rotatingWord && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  const words = ['playful.', 'human.', 'memorable.', 'meaningful.', 'expressive.'];
+  const words = ['alive.', 'consistent.', 'on-brand.', 'followed.', 'unmissable.'];
   let wordIndex = 0;
 
   window.setInterval(() => {
