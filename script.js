@@ -1,10 +1,6 @@
-const heroArt = document.querySelector('.hero-art');
 const heroSection = document.querySelector('.hero');
 const sideDoodles = document.querySelectorAll('.outside-doodle');
-const workSection = document.querySelector('.work-section');
-const workDoodles = document.querySelectorAll('.work-side-doodle');
 const reelPin = document.getElementById('work-reel-pin');
-const reelSticky = document.querySelector('.work-reel-sticky');
 const reelViewport = document.querySelector('.work-reel-viewport');
 const reelTrack = document.querySelector('.work-reel-track');
 const reelProgressFill = document.querySelector('.reel-progress-fill');
@@ -15,7 +11,6 @@ const visionBoard = document.querySelector('.vision-board');
 const draggablePieces = document.querySelectorAll('[data-draggable]');
 const nav = document.querySelector('.nav');
 const mascot = document.querySelector('.nav-smile');
-const easterEggHint = document.querySelector('.easter-egg-hint');
 const mascotLinks = document.querySelectorAll('.nav-about, .nav-work, .nav-connect');
 const connectTrigger = document.querySelector('.nav-connect');
 const connectGroup = document.querySelector('.nav-connect-group');
@@ -23,12 +18,6 @@ const connectSocialLinks = document.querySelectorAll('.nav-connect-group .social
 const rotatingWord = document.querySelector('.rotating-word');
 const peekCharacter = document.querySelector('.peek-character');
 const peekBubble = document.querySelector('.peek-bubble');
-
-try {
-  window.localStorage.removeItem('portfolio-easter-hint-dismissed');
-} catch {
-  // Storage may be unavailable when opened locally.
-}
 
 let reelScrollFrame = null;
 
@@ -73,9 +62,9 @@ const updateReelAndTheme = () => {
 
   // Multi-stage background color transition (inspired by gravity-design.de):
   // 1. Above video section: default charcoal (#222222)
-  // 2. Video & Experimental sections active: warm sketchbook Light Paper theme (#f5eedf)
+  // 2. Video, Results, Services & Landing sections active: warm sketchbook Light Paper theme (#f5eedf)
   // 3. About section active: warm espresso (#1c1815)
-  const lightSections = ['videos', 'services', 'landing']
+  const lightSections = ['videos', 'results', 'services', 'landing']
     .map((id) => document.getElementById(id))
     .filter(Boolean);
   const aboutRect = aboutSection ? aboutSection.getBoundingClientRect() : null;
@@ -121,7 +110,6 @@ const creativeModalBadge = creativeModal?.querySelector('.creative-modal-badge')
 const creativeModalIdx = document.getElementById('creative-modal-idx');
 const creativeModalTitle = creativeModal?.querySelector('.creative-modal-title');
 const creativeModalDesc = creativeModal?.querySelector('.creative-modal-desc');
-const creativeModalToolsChips = creativeModal?.querySelector('.creative-modal-tools-chips');
 const creativeNavPrev = creativeModal?.querySelector('.creative-nav-prev');
 const creativeNavNext = creativeModal?.querySelector('.creative-nav-next');
 
@@ -131,7 +119,7 @@ const updateCreativeModalContent = (index) => {
   if (!cinemaCards.length || !cinemaCards[index]) return;
   currentCreativeIndex = index;
   const card = cinemaCards[index];
-  const { title, badge, desc, img, tools } = card.dataset;
+  const { title, badge, desc, img } = card.dataset;
 
   if (creativeModalImg) {
     creativeModalImg.style.opacity = '0';
@@ -157,9 +145,8 @@ const lockModalScroll = () => {
 
 const unlockModalScroll = () => {
   const isCreativeOpen = creativeModal?.classList.contains('is-open');
-  const isVideoOpen = videoModal?.classList.contains('is-open');
   const isVpOpen = document.getElementById('vp-modal')?.classList.contains('is-open');
-  if (!isCreativeOpen && !isVideoOpen && !isVpOpen) {
+  if (!isCreativeOpen && !isVpOpen) {
     document.documentElement.classList.remove('modal-open');
     document.body.classList.remove('modal-open');
   }
@@ -176,6 +163,7 @@ const openCreativeModal = (cardOrIndex) => {
   updateCreativeModalContent(index);
 
   lockModalScroll();
+  creativeModal.inert = false;
   creativeModal.classList.add('is-open');
   creativeModal.setAttribute('aria-hidden', 'false');
   creativeModalClose?.focus();
@@ -185,6 +173,7 @@ const closeCreativeModal = () => {
   if (!creativeModal) return;
   creativeModal.classList.remove('is-open');
   creativeModal.setAttribute('aria-hidden', 'true');
+  creativeModal.inert = true;
   unlockModalScroll();
 };
 
@@ -220,48 +209,6 @@ creativeNavPrev?.addEventListener('click', (e) => {
 
 creativeModalClose?.addEventListener('click', closeCreativeModal);
 creativeModalOverlay?.addEventListener('click', closeCreativeModal);
-
-// Motion & Video Preview Modal
-const videoModal = document.getElementById('video-modal');
-const videoModalClose = videoModal?.querySelector('.video-modal-close');
-const videoModalOverlay = videoModal?.querySelector('.video-modal-overlay');
-const videoModalPlayerTitle = videoModal?.querySelector('.video-modal-player-title');
-const videoModalPlayerMeta = videoModal?.querySelector('.video-modal-player-meta');
-const videoModalTitle = videoModal?.querySelector('.video-modal-title');
-const videoModalDesc = videoModal?.querySelector('.video-modal-desc');
-const videoCards = document.querySelectorAll('.video-card');
-
-const openVideoModal = (card) => {
-  if (!videoModal || !card) return;
-  // Intro Video plays inline on the page and should never open in a modal
-  if (card.classList.contains('video-card-featured') || card.querySelector('#neon-rain-video')) return;
-  const { videoTitle, videoDesc, videoMeta, videoTools } = card.dataset;
-
-  if (videoModalPlayerTitle) videoModalPlayerTitle.textContent = videoTitle || '';
-  if (videoModalPlayerMeta) videoModalPlayerMeta.textContent = videoMeta || '';
-  if (videoModalTitle) videoModalTitle.textContent = videoTitle || '';
-  if (videoModalDesc) videoModalDesc.textContent = videoDesc || '';
-
-  const craftChipsWrap = document.getElementById('video-modal-craft-chips');
-  if (craftChipsWrap && videoTools) {
-    craftChipsWrap.innerHTML = videoTools
-      .split('·')
-      .map((item, i) => `<span class="craft-label-chip chip-rot-${(i % 3) + 1}">${item.trim()}</span>`)
-      .join('');
-  }
-
-  lockModalScroll();
-  videoModal.classList.add('is-open');
-  videoModal.setAttribute('aria-hidden', 'false');
-  videoModalClose?.focus();
-};
-
-const closeVideoModal = () => {
-  if (!videoModal) return;
-  videoModal.classList.remove('is-open');
-  videoModal.setAttribute('aria-hidden', 'true');
-  unlockModalScroll();
-};
 
 // ──────────────────────────────────────────────────────────────
 // GLOBAL AUDIO MANAGER
@@ -305,7 +252,6 @@ const liveScreen = document.getElementById('neon-rain-screen');
 
 if (liveVideo && liveMuteBtn && liveScreen) {
   liveVideo.muted = true;
-  liveVideo.play().catch(() => {});
 
   const updateV1UI = (isMuted) => {
     if (isMuted) {
@@ -352,21 +298,19 @@ if (liveVideo && liveMuteBtn && liveScreen) {
 // ──────────────────────────────────────────────────────────────
 const velocityVideo  = document.getElementById('velocity-video');
 const velocityMuteBtn = document.getElementById('velocity-mute-btn');
-const velocityScreen = document.getElementById('velocity-screen');
 
 if (velocityVideo && velocityMuteBtn) {
   velocityVideo.muted = true;
-  velocityVideo.play().catch(() => {});
 
   const updateV2MuteUI = (isMuted) => {
     if (isMuted) {
       velocityMuteBtn.classList.add('is-muted');
-      velocityMuteBtn.setAttribute('aria-label', 'Unmute VELOCITY video');
+      velocityMuteBtn.setAttribute('aria-label', 'Unmute SaaS video');
       const label = velocityMuteBtn.querySelector('.mute-btn-label');
       if (label) label.textContent = 'Unmute';
     } else {
       velocityMuteBtn.classList.remove('is-muted');
-      velocityMuteBtn.setAttribute('aria-label', 'Mute VELOCITY video');
+      velocityMuteBtn.setAttribute('aria-label', 'Mute SaaS video');
       const label = velocityMuteBtn.querySelector('.mute-btn-label');
       if (label) label.textContent = 'Mute';
     }
@@ -394,21 +338,19 @@ if (velocityVideo && velocityMuteBtn) {
 // ──────────────────────────────────────────────────────────────
 const solarisVideo  = document.getElementById('solaris-video');
 const solarisMuteBtn = document.getElementById('solaris-mute-btn');
-const solarisScreen = document.getElementById('solaris-screen');
 
 if (solarisVideo && solarisMuteBtn) {
   solarisVideo.muted = true;
-  solarisVideo.play().catch(() => {});
 
   const updateV3MuteUI = (isMuted) => {
     if (isMuted) {
       solarisMuteBtn.classList.add('is-muted');
-      solarisMuteBtn.setAttribute('aria-label', 'Unmute SOLARIS video');
+      solarisMuteBtn.setAttribute('aria-label', 'Unmute OREO AI video');
       const label = solarisMuteBtn.querySelector('.mute-btn-label');
       if (label) label.textContent = 'Unmute';
     } else {
       solarisMuteBtn.classList.remove('is-muted');
-      solarisMuteBtn.setAttribute('aria-label', 'Mute SOLARIS video');
+      solarisMuteBtn.setAttribute('aria-label', 'Mute OREO AI video');
       const label = solarisMuteBtn.querySelector('.mute-btn-label');
       if (label) label.textContent = 'Mute';
     }
@@ -429,6 +371,40 @@ if (solarisVideo && solarisMuteBtn) {
   };
 
   solarisMuteBtn.addEventListener('click', toggleV3Sound);
+}
+
+// ──────────────────────────────────────────────────────────────
+// Inline videos only play while they are on screen, so nothing
+// streams on first load. Reduced-motion visitors get the poster
+// frame and can still start a video themselves.
+// ──────────────────────────────────────────────────────────────
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const inlineVideos = [liveVideo, velocityVideo, solarisVideo].filter(Boolean);
+const visibleVideos = new Set();
+
+const playIfVisible = (video) => {
+  if (prefersReducedMotion || !visibleVideos.has(video)) return;
+  video.play().catch(() => {});
+};
+
+if ('IntersectionObserver' in window) {
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (isIntersecting) {
+        visibleVideos.add(target);
+        playIfVisible(target);
+      } else {
+        visibleVideos.delete(target);
+        target.pause();
+      }
+    });
+  }, { threshold: 0.25 });
+  inlineVideos.forEach((video) => videoObserver.observe(video));
+} else {
+  inlineVideos.forEach((video) => {
+    visibleVideos.add(video);
+    playIfVisible(video);
+  });
 }
 
 // ──────────────────────────────────────────────────────────────
@@ -496,6 +472,7 @@ const openVpModal = (src, title) => {
   if (vpSeek) vpSeek.value = 0;
 
   lockModalScroll();
+  vpModal.inert = false;
   vpModal.classList.add('is-open');
   vpModal.setAttribute('aria-hidden', 'false');
   vpCloseBtn?.focus();
@@ -507,10 +484,10 @@ const closeVpModal = () => {
   vpVideo.src = '';
   vpModal.classList.remove('is-open');
   vpModal.setAttribute('aria-hidden', 'true');
+  vpModal.inert = true;
   unlockModalScroll();
-  // Ensure inline background loops continue silently
-  if (velocityVideo && velocityVideo.paused) velocityVideo.play().catch(() => {});
-  if (solarisVideo && solarisVideo.paused) solarisVideo.play().catch(() => {});
+  // Inline loops that are still on screen carry on silently
+  inlineVideos.forEach(playIfVisible);
 };
 
 if (vpVideo) {
@@ -575,8 +552,7 @@ document.addEventListener('keydown', (e) => {
 // Wire Video Cards:
 // - Video 1 (Intro Video): stays inline, never opens modal
 // - Video 2 & 3: clicking card or open button opens clean vp-modal
-// - Other placeholder cards: open legacy video modal
-videoCards.forEach((card) => {
+document.querySelectorAll('.video-card').forEach((card) => {
   card.addEventListener('click', (e) => {
     // If user clicked the inline mute button, do not open the modal
     if (e.target.closest('.video-inline-mute-btn')) return;
@@ -586,23 +562,15 @@ videoCards.forEach((card) => {
 
     // Card with custom video source opens clean player modal
     const videoSrc = card.dataset.videoSrc;
-    if (videoSrc) {
-      openVpModal(videoSrc, card.dataset.videoTitle || 'Video Player');
-      return;
-    }
-
-    openVideoModal(card);
+    if (videoSrc) openVpModal(videoSrc, card.dataset.videoTitle || 'Video Player');
   });
 });
 
-videoModalClose?.addEventListener('click', closeVideoModal);
-videoModalOverlay?.addEventListener('click', closeVideoModal);
-
 // Prevent background window scroll leakage while modal is open
-[creativeModal, videoModal, vpModal].forEach((modal) => {
+[creativeModal, vpModal].forEach((modal) => {
   if (!modal) return;
   modal.addEventListener('wheel', (e) => {
-    const shell = modal.querySelector('.creative-modal-shell, .video-modal-shell');
+    const shell = modal.querySelector('.creative-modal-shell');
     if (shell && shell.contains(e.target)) {
       const { scrollTop, scrollHeight, clientHeight } = shell;
       const isScrollable = scrollHeight > clientHeight;
@@ -619,7 +587,7 @@ videoModalOverlay?.addEventListener('click', closeVideoModal);
   }, { passive: false });
 
   modal.addEventListener('touchmove', (e) => {
-    const shell = modal.querySelector('.creative-modal-shell, .video-modal-shell');
+    const shell = modal.querySelector('.creative-modal-shell');
     if (!shell || !shell.contains(e.target)) {
       e.preventDefault();
     }
@@ -637,10 +605,7 @@ document.addEventListener('keydown', (e) => {
       return;
     }
   }
-  if (e.key === 'Escape') {
-    closeCreativeModal();
-    closeVideoModal();
-  }
+  if (e.key === 'Escape') closeCreativeModal();
 });
 
 if (
@@ -902,19 +867,6 @@ if (connectTrigger && connectGroup) {
   });
 }
 
-if (heroArt && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  heroArt.addEventListener('pointermove', (event) => {
-    const bounds = heroArt.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-    heroArt.style.transform = `rotate(${x * 0.55}deg) translate(${x * 3}px, ${y * 3}px)`;
-  });
-
-  heroArt.addEventListener('pointerleave', () => {
-    heroArt.style.transform = 'rotate(0deg) translate(0, 0)';
-  });
-}
-
 if (heroSection && sideDoodles.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   heroSection.addEventListener('pointermove', (event) => {
     const bounds = heroSection.getBoundingClientRect();
@@ -935,28 +887,6 @@ if (heroSection && sideDoodles.length && !window.matchMedia('(prefers-reduced-mo
       doodle.style.setProperty('--drift-x', '0px');
       doodle.style.setProperty('--drift-y', '0px');
       doodle.style.setProperty('--drift-r', '0deg');
-    });
-  });
-}
-
-if (workSection && workDoodles.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  workSection.addEventListener('pointermove', (event) => {
-    const bounds = workSection.getBoundingClientRect();
-    const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 2;
-    const visibleY = Math.min(Math.max((event.clientY - bounds.top) / window.innerHeight, 0), 1);
-    const y = (visibleY - 0.5) * 2;
-
-    workDoodles.forEach((doodle) => {
-      const depth = Number(doodle.dataset.depth) || 12;
-      doodle.style.setProperty('--work-drift-x', `${x * depth}px`);
-      doodle.style.setProperty('--work-drift-y', `${y * Math.abs(depth) * 0.65}px`);
-    });
-  });
-
-  workSection.addEventListener('pointerleave', () => {
-    workDoodles.forEach((doodle) => {
-      doodle.style.setProperty('--work-drift-x', '0px');
-      doodle.style.setProperty('--work-drift-y', '0px');
     });
   });
 }
@@ -1360,22 +1290,45 @@ if (
   window.addEventListener('resize', updateGameMeasurements);
 }
 
-// Design Orbit Featured Card Click Navigation
-const designOrbitCard = document.querySelector('.exp-card-featured');
-if (designOrbitCard) {
-  designOrbitCard.style.cursor = 'pointer';
-  designOrbitCard.setAttribute('tabindex', '0');
-  designOrbitCard.setAttribute('role', 'link');
-  designOrbitCard.setAttribute('aria-label', 'Open Design Orbit case study and program tour');
-  designOrbitCard.addEventListener('click', (e) => {
-    if (!e.target.closest('a')) {
-      window.location.href = 'design-orbit.html';
-    }
+// ──────────────────────────────────────────────────────────────
+// Prospect tracking: a link like ?ref=brandname is carried into
+// WhatsApp messages, the booking link and Clarity, and CTA clicks
+// are sent to Clarity as events (cta_booking, cta_whatsapp, cta_email).
+// ──────────────────────────────────────────────────────────────
+const sendClarity = (...args) => {
+  if (typeof window.clarity === 'function') window.clarity(...args);
+};
+
+const prospectRef = (() => {
+  try {
+    const raw = new URLSearchParams(window.location.search).get('ref') || '';
+    return raw.replace(/[^\w.-]/g, '').slice(0, 40);
+  } catch {
+    return '';
+  }
+})();
+
+if (prospectRef) {
+  document.querySelectorAll('a[href^="https://wa.me/"]').forEach((link) => {
+    const url = new URL(link.href);
+    const text = url.searchParams.get('text') || 'Hi Varun!';
+    url.search = `?text=${encodeURIComponent(`${text} (via ref: ${prospectRef})`)}`;
+    link.href = url.toString();
   });
-  designOrbitCard.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      window.location.href = 'design-orbit.html';
-    }
+
+  document.querySelectorAll('a[data-cta="booking"]').forEach((link) => {
+    // Skip until the {{BOOKING_URL}} placeholder is replaced with a real link
+    if (!/^https?:/.test(link.getAttribute('href') || '')) return;
+    const url = new URL(link.href);
+    url.searchParams.set('ref', prospectRef);
+    url.searchParams.set('utm_content', prospectRef);
+    link.href = url.toString();
   });
+
+  sendClarity('set', 'ref', prospectRef);
 }
+
+document.addEventListener('click', (event) => {
+  const link = event.target.closest('a[data-cta]');
+  if (link) sendClarity('event', `cta_${link.dataset.cta}`);
+});

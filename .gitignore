@@ -4,3 +4,5 @@ package-lock.json
 Videos/*_orig_backup.mp4
 .DS_Store
 Thumbs.db
+_originals/Videos/*_orig_backup.mp4
+_originals/
