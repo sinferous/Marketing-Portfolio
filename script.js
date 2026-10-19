@@ -73,6 +73,8 @@ const updateReelAndTheme = () => {
   const isAboutActive = aboutRect ? aboutRect.top <= vh * 0.5 : false;
   const isLightActive = !isAboutActive && lightSections.some((section) => {
     const rect = section.getBoundingClientRect();
+    // Hidden sections (e.g. Results with body.results-off) report a 0x0 rect at top 0
+    if (!rect.height) return false;
     return rect.top <= vh * 0.72 && rect.bottom >= 0;
   });
 
